@@ -1,0 +1,3 @@
+Push Up,bodyweight
+Plank,time-based
+Bench Press,weight-based
