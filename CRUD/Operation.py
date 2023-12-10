@@ -79,20 +79,21 @@ def edit(routine_name):
         print(Database.temp_routine)
         print_routine(routine_name)
 
+        print("\n'nomor(spasi)opsi' untuk memilih")
+        print("Contoh: 3 1 untuk mengedit exercise no.3")
+
         print("_1 Edit")
         print("_2 Tambahkan set")
         print("_3 Hapus set")
 
         print("\nOpsi lain: ")
-        print("00 untuk menambahkan Exercise")
-        print("01 untuk keluar")
-        print("02 untuk ganti nama rutinitas")
+        print("00 Menambahkan exercise")
+        print("01 Keluar")
+        print("02 Rename rutinitas")
         
-        print("\n'nomor(spasi)opsi' untuk memilih")
-        print("Contoh: 3 1 untuk mengedit exercise no.3")
 
         while True:
-            user_option = input("Pilihan Anda: ")
+            user_option = input("\nPilihan Anda: ")
             match user_option:
                 case "00": 
                     select_exercise()

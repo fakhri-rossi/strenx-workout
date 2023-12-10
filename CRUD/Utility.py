@@ -1,4 +1,5 @@
 import os
+from .import Database, Operation
 
 def clear_screen():
     sistem_operasi = os.name
@@ -27,6 +28,20 @@ def file_to_list(file_name:str) -> list:
             line_list.append(line[:-1])
     return line_list
     
+def ask_number():
+    while True:
+        try:
+            index = int(input("Nomor rutinitas yang ingin diupdate: "))-1
+            if index < -1 or index >= len(Database.routines):
+                print("Nomor rutinitas tidak tersedia!")
+                continue
+
+            else:
+                routine_name = Database.routines[index]
+                return index
+
+        except:
+            print("Masukkan angka valid!")
 
 def ask_reps() -> int:
      while True:

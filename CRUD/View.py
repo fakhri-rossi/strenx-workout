@@ -2,7 +2,24 @@ from . import Utility, Database, Operation
 import os
 
 def run_routine():
-    pass
+    Database.refresh_routines()
+    Utility.clear_screen()
+
+    # heading
+    print("="*51)
+    print("Jalankan Rutinitas")
+    print("="*51)
+
+    # spill summarized routines
+    Operation.print_summarized_routine()
+    print("0. Batal")
+    index = Utility.ask_number()
+
+    if index > -1:
+        routine_name = Database.routines[index]
+        Operation.edit(routine_name)
+    else:
+        print("Tidak jadi meng-update rutinitas")
 
 def print_all_routines():
     Utility.clear_screen()
@@ -25,32 +42,41 @@ def new_routine():
 def edit_routine():
     Database.refresh_routines()
     Utility.clear_screen()
+
+    # heading
     print("="*51)
     print("Mengedit Rutinitas")
     print("="*51)
     # spill summarized routines
     Operation.print_summarized_routine()
-    print("0. Tidak jadi mengupdate")
 
-    while True:
-        try:
-            index = int(input("Nomor rutinitas yang ingin diupdate: "))-1
-            if index < -1 or index >= len(Database.routines):
-                print("Nomor rutinitas tidak tersedia!")
-                continue
+    print("0. Batal")
+    index = Utility.ask_number()
 
-            elif index == -1:
-                print("Tidak jadi meng-update rutinitas")
-                break
+    if index > -1:
+        routine_name = Database.routines[index]
+        Operation.edit(routine_name)
+    else:
+        print("Tidak jadi meng-update rutinitas")
 
-            else:
-                routine_name = Database.routines[index]
-                Operation.edit(routine_name)
-                break
-        except:
-            print("Masukkan angka valid!")
-    
-                    
+    # while True:
+    #     try:
+    #         index = int(input("Nomor rutinitas yang ingin diupdate: "))-1
+    #         if index < -1 or index >= len(Database.routines):
+    #             print("Nomor rutinitas tidak tersedia!")
+    #             continue
+
+    #         elif index == -1:
+    #             print("Tidak jadi meng-update rutinitas")
+    #             break
+
+    #         else:
+    #             routine_name = Database.routines[index]
+    #             Operation.edit(routine_name)
+    #             break
+    #     except:
+    #         print("Masukkan angka valid!")
+                     
 def delete_routine():
     Database.refresh_routines()
     Utility.clear_screen()
