@@ -63,6 +63,7 @@ def run_page(routine_name):
     Database.refresh_temp_routines(routine_name)
     Database.create_temp_history(time_start, routine_name)
     is_continue = True
+    routine_change = False
     
     while is_continue:
         Utility.clear_screen()
@@ -91,13 +92,13 @@ def run_page(routine_name):
                     break
 
                 case "01": 
-                    agree = Utility.user_confirm("Simpan perubahan rutinitas?")
+                    agree = Utility.user_confirm("Selesai berolahraga?")
                     if agree:
-                        Database.create()
+                        Database.add_history()
+                        is_continue = False
+                        break
                     else:
-                        print("Tidak jadi diupdate")
-                    is_continue = False
-                    break
+                        break
 
                 case "02": 
                     data = Database.temp_history
@@ -125,14 +126,17 @@ def run_page(routine_name):
                         case "1":
                             print("Edit set")
                             edit_set(user_option[0])
+                            routine_change = True
                             break
 
                         case "2":
                             add_set(user_option[0])
+                            routine_change = True               
                             break
 
                         case "3":
                             delete_set(user_option[0])
+                            routine_change = True
                             break
 
                         case "4":

@@ -1,0 +1,2 @@
+2023-12-10-17-16-33+0700,Chest Day,Bench Press,10,10,-,y,Bench Press,12,12,-,y
+2023-12-10-17-17-02+0700,Chost,Push Up,12,-,-,y,Push Up,14,-,-,y

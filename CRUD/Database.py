@@ -20,6 +20,23 @@ TEMPLATE = {
     "no": " "*4
 }
 
+def add_history():
+    try:
+        with open("history.txt", 'a', encoding="utf-8") as file:
+            data_str = ""
+            n = len(temp_history)
+            data_str = f"{temp_history[0]},{temp_history[1]}"
+            for i in range(2,n):
+                if temp_history[i][-1] == "y":
+                    data_str += f",{temp_history[i]}"
+            data_str += "\n"
+            file.write(data_str)
+    
+    except:
+        print('file history tidak ditemukan')
+
+
+
 def clear_temp_history():
     temp_history.clear()
 
