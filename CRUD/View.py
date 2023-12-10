@@ -13,13 +13,13 @@ def run_routine():
     # spill summarized routines
     Operation.print_summarized_routine()
     print("0. Batal")
-    index = Utility.ask_number()
+    index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")
 
     if index > -1:
         routine_name = Database.routines[index]
-        Operation.edit(routine_name)
+        Operation.run_page(routine_name)
     else:
-        print("Tidak jadi meng-update rutinitas")
+        print("Tidak jadi menjalankan rutinitas")
 
 def print_all_routines():
     Utility.clear_screen()
@@ -51,7 +51,7 @@ def edit_routine():
     Operation.print_summarized_routine()
 
     print("0. Batal")
-    index = Utility.ask_number()
+    index = Utility.ask_number("Rutinitas yang ingin diupdate: ")
 
     if index > -1:
         routine_name = Database.routines[index]

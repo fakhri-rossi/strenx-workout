@@ -16,19 +16,29 @@ TEMPLATE = {
     "muscle_target": " "*30,
     "reps": " "*4,
     "kg": " "*4,
-    "time": "MM:SS",
+    "time": " "*5,
     "no": " "*4
 }
 
 def clear_temp_history():
     temp_history.clear()
 
-def update_temp_history():
-    pass
+def update_temp_history(index):
+    n = len(temp_history)
+    
 
-def create_temp_history(time_start,routine_name:str):
-    temp_history = temp_routine.copy()
-    temp_history[0] = time_start
+def create_temp_history(time_start:str,routine_name:str):
+    print(temp_routine)
+    n = len(temp_routine)
+    temp_history.clear()
+
+    for i in range(n):
+        temp_history.append(temp_routine[i])
+    
+    temp_history.insert(0, time_start)
+    n = len(temp_history)
+    for i in range(2,n):
+        temp_history[i] = f"{temp_history[i]},n"
 
 
 def clear_temp_routines():
@@ -88,6 +98,9 @@ def create():
         data = temp_routine
         n = len(data)
         file_name = routine_path + routine_title + ".txt"
+
+        # me-remove file lama
+        os.remove(file_name)
 
         with open(file_name, "w", encoding='utf-8') as file:
             for i in range(1,n):

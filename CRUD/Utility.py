@@ -28,10 +28,10 @@ def file_to_list(file_name:str) -> list:
             line_list.append(line[:-1])
     return line_list
     
-def ask_number():
+def ask_number(message:str) -> int:
     while True:
         try:
-            index = int(input("Nomor rutinitas yang ingin diupdate: "))-1
+            index = int(input(message))-1
             if index < -1 or index >= len(Database.routines):
                 print("Nomor rutinitas tidak tersedia!")
                 continue
