@@ -126,7 +126,7 @@ def edit(routine_name):
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] > len(Database.temp_routine):
+                    if user_option[0] >= len(Database.temp_routine) or user_option[0] < 1:
                         print("Nomor exercise tidak ada")
                         continue
 
