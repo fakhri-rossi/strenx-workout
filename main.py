@@ -3,6 +3,9 @@ import CRUD as CRUD
 if __name__=="__main__":
     CRUD.init_app()
     while True:
+        CRUD.refresh_routines()
+        CRUD.clear_screen()
+
         print("Welcome to Strenx Workout!")
         print("===============================")
         print("1. Jalankan Rutinitas")
@@ -16,14 +19,14 @@ if __name__=="__main__":
         user_option = input("Masukan opsi: ")
         match user_option:
             case "1": print("Menjalankan Rutinitas")
-            case "2": print("Melihat rutinitas")
+            case "2": CRUD.print_all_routines()
             case "3": CRUD.new_routine()
-            case "4": print("Mengedit Rutinitas")
+            case "4": CRUD.edit_routine()
             case "5": print("Menghapus Rutinitas")
             case "6": print("Melihat Histori")
             case "0": break
             case _: print("Opsi tidak tersedia")
         
-        is_exit = input("Apakah Anda ingin keluar? (y/n): ")
-        if is_exit.lower() == "y":
+        is_continue = input("Keluar? (y/n): ")
+        if is_continue.lower() == "y":
             break

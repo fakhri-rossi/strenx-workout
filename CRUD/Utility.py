@@ -27,4 +27,33 @@ def file_to_list(file_name:str) -> list:
             line_list.append(line[:-1])
     return line_list
     
+
+def ask_reps() -> int:
+     while True:
+        try:
+            reps = int(input("Reps: "))
+            return reps
+        except:
+            print("Masukkan Repetisi yang valid!")
       
+def ask_kg():
+    try:
+        kg = int(input("Berat beban: "))
+        return kg
+    except:
+        print("Masukkan berat yang valid!")
+
+def ask_timer()-> str:
+    while True:
+        timer = input("Time (mm:ss): ")
+        if timer[2] != ":":
+            print("Input valid time!")
+            continue
+        else:
+            try:
+                inttime = int(timer[:2])
+                inttime = int(timer[3:])
+                return timer
+            except:
+                print("Input valid time!")
+                continue

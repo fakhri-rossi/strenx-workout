@@ -19,6 +19,23 @@ TEMPLATE = {
     "no": " "*4
 }
 
+def clear_temp_routines():
+    temp_routine.clear()
+
+def create_temp_routine(routine_name:str):
+    file_name = "./routines/"+routine_name+".txt"
+    temp_routine.append(routine_name)
+
+    try:
+        with open(file_name, "r") as file:
+            content = file.readlines()
+            for line in content:
+                temp_routine.append(line[:-1])
+
+            # print(temp_routine)
+    except:
+        print("Gagal membuat temp routine")
+
 def init_app():
     for (root, dirs, files) in os.walk(routine_path):
         for file in files:
@@ -39,7 +56,32 @@ def init_app():
                                     "type": exercise_type,
                                     "muscle_target": muscle_target})
             
-            print(exercises)
-
     except:
         print("Gagal membuka database exercise")
+
+def refresh_routines():
+    routines.clear()
+    for (root, dirs, files) in os.walk(routine_path):
+        for file in files:
+            if ".txt" in file:
+                routines.append(file[:-4])
+
+def refresh_temp_routines(routine_name):
+    clear_temp_routines()
+    create_temp_routine(routine_name)
+
+def create():
+    try:
+        routine_title = temp_routine[0]
+        data = temp_routine
+        n = len(data)
+        file_name = routine_path + routine_title + ".txt"
+
+        with open(file_name, "w", encoding='utf-8') as file:
+            for i in range(1,n):
+                line = data[i] + "\n"
+                file.write(line)
+        # temp_routine.clear()
+
+    except:
+        print("Pembuatan rutinitas gagal")
