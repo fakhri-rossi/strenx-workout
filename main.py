@@ -17,7 +17,7 @@ if __name__=="__main__":
         match user_option:
             case "1": print("Menjalankan Rutinitas")
             case "2": print("Melihat rutinitas")
-            case "3": CRUD.create_routine()
+            case "3": CRUD.new_routine()
             case "4": print("Mengedit Rutinitas")
             case "5": print("Menghapus Rutinitas")
             case "6": print("Melihat Histori")

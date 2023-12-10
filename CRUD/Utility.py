@@ -17,4 +17,14 @@ def user_confirm(message:str) -> bool:
             return False
         else:
              print("Input jawaban yang valid!")
+
+def file_to_list(file_name:str) -> list:
+    line_list = []
+    with open(file_name, "r") as file:
+        content = file.readlines()
+
+        for line in content:
+            line_list.append(line[:-1])
+    return line_list
+    
       

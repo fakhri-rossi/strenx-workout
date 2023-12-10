@@ -5,6 +5,7 @@ routine_path = "./routines/"
 routines = []
 exercises = []
 temp_routine = []
+# HATI-HATI, index 0 temp_routine berisi judul routine, sisanya data exercise
 
 # header => 33 spasi kosong sebelah kiri, 34 routine name, 33 spasi kosong kanan
 TEMPLATE = {
@@ -13,7 +14,7 @@ TEMPLATE = {
     "exercise_type": " "*30,
     "muscle_target": " "*30,
     "reps": " "*4,
-    "Kg": " "*4,
+    "kg": " "*4,
     "time": "MM:SS",
     "no": " "*4
 }

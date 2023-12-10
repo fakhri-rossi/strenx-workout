@@ -1,39 +1,16 @@
-from . import Database, Utility
+from . import Database, Utility, View
 
 def select_exercise():
-    # print heading
-    Utility.clear_screen()
-    print("Select Exercise")
-    print("-"* 93)
-    print(f"No  |Exercise Name" + " "*17 + "|Exercise Type" + " "*17 +"|Muscle Target" + " "*17)
-    print("-"* 93)
-
+    # Print all exercises
+    View.print_exercises()
     n = len(Database.exercises)
-    # print content
-    counter = 1
-    for i in range(n):
-        str_counter = str(counter)
-        no = f"{str_counter + Database.TEMPLATE['no'][len(str_counter):]}"
-
-        exercise_name = Database.exercises[i]["name"]
-        exercise_name += Database.TEMPLATE["exercise_name"][len(exercise_name):]
-
-        exercise_type = Database.exercises[i]["type"]
-        exercise_type += Database.TEMPLATE["exercise_type"][len(exercise_type):]
-
-        muscle_target = Database.exercises[i]["type"].split(" ")
-        muscle_target = ", ".join(muscle_target)
-        muscle_target += Database.TEMPLATE["muscle_target"][len(muscle_target):]
-
-        print(f"{no}|{exercise_name}|{exercise_type}|{muscle_target}")
-        counter += 1
 
     # ask user option
     while True:
         try:
             user_option = int(input("No exercise yang ingin ditambah: ")) - 1
 
-            if user_option >= n or user_option < 1:
+            if user_option >= n or user_option < 0:
                 print("Masukkan angka yang valid")
 
             else:
@@ -51,7 +28,7 @@ def select_exercise():
             else: 
                 reps = "-"
             if exercise_type == "weight-based":
-                kg = float(input("Kg: "))
+                kg = int(input("Kg: "))
             else:
                 kg = "-"
             if exercise_type == "time-based":
@@ -71,11 +48,12 @@ def select_exercise():
             else:
                 timer = "-"
 
-            str_exercise = f"{reps},{kg},{timer}"
+            str_exercise = f"{exercise_name},{reps},{kg},{timer}"
             print(str_exercise)
 
             agree = Utility.user_confirm("Apakah Anda yakin?")
             if agree:
+                Database.temp_routine.append(str_exercise)
                 break
             else:
                 break
@@ -83,11 +61,18 @@ def select_exercise():
         except:
             print("Masukkan input yang valid!")
             
-def create(routine_title):
+def create():
     try:
+        routine_title = Database.temp_routine[0]
+        data = Database.temp_routine
+        n = len(data)
         file_name = Database.routine_path + routine_title + ".txt"
+
         with open(file_name, "w", encoding='utf-8') as file:
-            file.write()
+            for i in range(1,n):
+                line = data[i] + "\n"
+                file.write(line)
+
     except:
         print("Pembuatan rutinitas gagal")
 
