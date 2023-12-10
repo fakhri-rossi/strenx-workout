@@ -30,22 +30,26 @@ def edit_routine():
     print("="*51)
     # spill summarized routines
     Operation.print_summarized_routine()
+    print("0. Tidak jadi mengupdate")
 
     while True:
-        print(Database.routines)
         try:
-            index = int(input("Nomor rutinitas yang ingin diupdate: "))
-            if index < 1 or index > len(Database.routines):
+            index = int(input("Nomor rutinitas yang ingin diupdate: "))-1
+            if index < -1 or index >= len(Database.routines):
                 print("Nomor rutinitas tidak tersedia!")
                 continue
+
+            elif index == -1:
+                print("Tidak jadi meng-update rutinitas")
+                break
+
             else:
-                # routine_name = Database.routines[index-1]
-                # Operation.edit(routine_name)
+                routine_name = Database.routines[index]
+                Operation.edit(routine_name)
                 break
         except:
             print("Masukkan angka valid!")
-    routine_name = Database.routines[index-1]
-    Operation.edit(routine_name)
+    
                     
 def delete_routine():
     Database.refresh_routines()
@@ -64,7 +68,6 @@ def delete_routine():
                 print("Nomor rutinitas tidak tersedia!")
                 continue
             else:
-
                 break
         except:
             print("Masukkan angka valid!")
