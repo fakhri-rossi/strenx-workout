@@ -1,10 +1,11 @@
-import os
+import os, time
 
 DB_NAME = "data.txt"
 routine_path = "./routines/"
 routines = []
 exercises = []
 temp_routine = []
+temp_history = []
 # HATI-HATI, index 0 temp_routine berisi judul routine, sisanya data exercise
 
 # header => 33 spasi kosong sebelah kiri, 34 routine name, 33 spasi kosong kanan
@@ -18,6 +19,17 @@ TEMPLATE = {
     "time": "MM:SS",
     "no": " "*4
 }
+
+def clear_temp_history():
+    temp_history.clear()
+
+def update_temp_history():
+    pass
+
+def create_temp_history(time_start,routine_name:str):
+    temp_history = temp_routine.copy()
+    temp_history[0] = time_start
+
 
 def clear_temp_routines():
     temp_routine.clear()

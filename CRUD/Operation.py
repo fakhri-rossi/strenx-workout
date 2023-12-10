@@ -1,5 +1,5 @@
 from . import Database, Utility, View
-import os
+import os, time
 
 name_space = Database.TEMPLATE["exercise_name"]
 type_space = Database.TEMPLATE["exercise_name"]
@@ -8,6 +8,32 @@ kg_space = Database.TEMPLATE["kg"]
 time_space = Database.TEMPLATE["time"]
 no_space = Database.TEMPLATE["no"]
 muscle_target = Database.TEMPLATE["muscle_target"]
+
+def print_run(routine_name):
+    data = Database.temp_history
+    n = len(data)
+
+    # print heading
+    print("\n" + "="*51)
+    print(routine_name)
+    print("="*51)
+    print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer")
+    print("-"*51)
+
+    if n > 1:
+        for i in range(1,n):
+            data_break = data[i].split(",")
+            name = data_break[0] + name_space[len(data_break[0]):]
+            reps = data_break[1] + reps_space[len(data_break[1]):]
+            kg = data_break[2] + kg_space[len(data_break[2]):]
+            timer = data_break[3]
+            no = f"{i}" + no_space[len(str(i)):]
+
+            print(f"{no}|{name}|{reps}|{kg}|{timer}")
+
+    else:
+        print("Belum ada exercise apapun")
+    print()
 
 def create_routine():
     Database.clear_temp_routines()
@@ -28,6 +54,8 @@ def create_routine():
 def run_page(routine_name):
     Database.refresh_temp_routines(routine_name)
     is_continue = True
+    time_start = time.strftime("%Y-%m-%d-%H-%M-%S%z", time.gmtime())
+    Database.create_temp_history(time_start, routine_name)
     
     while is_continue:
         Utility.clear_screen()
@@ -40,6 +68,7 @@ def run_page(routine_name):
         print("_1 Edit")
         print("_2 Tambahkan set")
         print("_3 Hapus set")
+        print("_4 Set selesai")
 
         print("\nOpsi lain: ")
         print("00 Menambahkan exercise")
@@ -108,7 +137,6 @@ def run_page(routine_name):
 
     
 def select_exercise():
-    # Print all exercises
     print_exercises()
     n = len(Database.exercises)
 
@@ -158,7 +186,7 @@ def edit(routine_name):
     while is_continue:
         Utility.clear_screen()
         print(Database.temp_routine)
-        print_routine(routine_name)
+        print_routine()
 
         print("\n'nomor(spasi)opsi' untuk memilih")
         print("Contoh: 3 1 untuk mengedit exercise no.3")
@@ -178,11 +206,15 @@ def edit(routine_name):
             match user_option:
                 case "00": 
                     select_exercise()
-                    Database.create()
+                    # Database.create()
                     break
 
                 case "01": 
-                    Database.create()
+                    agree = Utility.user_confirm("Simpan perubahan rutinitas?")
+                    if agree:
+                        Database.create()
+                    else:
+                        print("Tidak jadi diupdate")
                     is_continue = False
                     break
 
@@ -226,9 +258,9 @@ def edit(routine_name):
                             delete_set(user_option[0])
                             break
 
-            Database.refresh_temp_routines(routine_name)           
-        Database.create()        
-        Database.refresh_temp_routines(routine_name)
+        #     Database.refresh_temp_routines(routine_name)           
+        # Database.create()        
+        # Database.refresh_temp_routines(routine_name)
         Utility.clear_screen()   
     Database.clear_temp_routines()
 
@@ -261,11 +293,12 @@ def print_exercises():
         print(f"{no}|{exercise_name}|{exercise_type}|{muscle_target}")
         counter += 1
 
-def print_routine(routine_name):
-    Database.clear_temp_routines()
-    Database.create_temp_routine(routine_name)
+def print_routine():
+    # Database.clear_temp_routines()
+    # Database.create_temp_routine(routine_name)
     data = Database.temp_routine
     n = len(data)
+    routine_name = Database.temp_routine[0]
 
     # print heading
     print("\n" + "="*51)

@@ -27,8 +27,8 @@ def print_all_routines():
     Database.refresh_routines()
 
     for routine in Database.routines:
-        # file_name = "./routines/" + routine + ".txt"
-        Operation.print_routine(routine)
+        Database.refresh_temp_routines(routine)
+        Operation.print_routine()
         Database.clear_temp_routines()
         print()
 
@@ -58,24 +58,6 @@ def edit_routine():
         Operation.edit(routine_name)
     else:
         print("Tidak jadi meng-update rutinitas")
-
-    # while True:
-    #     try:
-    #         index = int(input("Nomor rutinitas yang ingin diupdate: "))-1
-    #         if index < -1 or index >= len(Database.routines):
-    #             print("Nomor rutinitas tidak tersedia!")
-    #             continue
-
-    #         elif index == -1:
-    #             print("Tidak jadi meng-update rutinitas")
-    #             break
-
-    #         else:
-    #             routine_name = Database.routines[index]
-    #             Operation.edit(routine_name)
-    #             break
-    #     except:
-    #         print("Masukkan angka valid!")
                      
 def delete_routine():
     Database.refresh_routines()
