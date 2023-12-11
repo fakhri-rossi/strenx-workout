@@ -59,7 +59,7 @@ def create_routine():
 
 
 def run_page(routine_name):
-    time_start = time.strftime("%Y-%m-%d-%H-%M-%S%z", time.gmtime())
+    time_start = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
     Database.refresh_temp_routines(routine_name)
     Database.create_temp_history(time_start, routine_name)
     is_continue = True
@@ -299,17 +299,22 @@ def print_exercises():
         counter += 1
 
 
-def print_routine():
-    # Database.clear_temp_routines()
-    # Database.create_temp_routine(routine_name)
-    data = Database.temp_routine
-    n = len(data)
-    routine_name = Database.temp_routine[0]
+def print_routine(**kwargs):
+    # kalo ada sumber dari list maka data akan diambil dari list tersebut
+    if "list_source" in kwargs:
+        data = kwargs["list_source"]
+    
+    # jika tidak maka mengambil data dari temp_routine
+    else:
+        data = Database.temp_routine
+        routine_name = Database.temp_routine[0]
+        # print heading
+        print("\n" + "="*51)
+        print(routine_name)
+        print("="*51)
 
-    # print heading
-    print("\n" + "="*51)
-    print(routine_name)
-    print("="*51)
+    n = len(data)
+
     print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer")
     print("-"*51)
 

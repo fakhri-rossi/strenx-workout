@@ -18,12 +18,12 @@ if __name__=="__main__":
 
         user_option = input("Masukan opsi: ")
         match user_option:
-            case "1": CRUD.run_routine()
+            case "1": CRUD.run_routine( )
             case "2": CRUD.print_all_routines()
             case "3": CRUD.new_routine()
             case "4": CRUD.edit_routine()
             case "5": CRUD.delete_routine()
-            case "6": print("Melihat Histori")
+            case "6": CRUD.history_read()
             case "0": break
             case _: print("Opsi tidak tersedia")
         

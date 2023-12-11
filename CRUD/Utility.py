@@ -7,6 +7,38 @@ def clear_screen():
             case "posix": os.system("clear")
             case "nt": os.system("cls")
           
+def month_to_name(month:int) -> str:
+    month = int(month)
+    match month:
+        case 1:
+            month = "Januari"
+        case 2:
+            month = "Februari"
+        case 3:
+            month = "Maret"
+        case 4:
+            month = "April"
+        case 5:
+            month = "Mei"
+        case 6:
+            month = "Juni"
+        case 7:
+            month = "Juli"
+        case 8:
+            month = "Agustus"
+        case 9:
+            month = "September"
+        case 10:
+            month = "Oktober"
+        case 11:
+            month = "November"
+        case 12:
+            month = "Desember"
+        case _:
+            month = "error month"
+
+    return month
+
 def user_confirm(message:str) -> bool:
       message += " (y/n): "
 

@@ -23,12 +23,17 @@ TEMPLATE = {
 def add_history():
     try:
         with open("history.txt", 'a', encoding="utf-8") as file:
-            data_str = ""
+            time_end = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
             n = len(temp_history)
-            data_str = f"{temp_history[0]},{temp_history[1]}"
+
+            data_str = ""
+            # time_start,time_end,routine_name,exercises...
+            data_str = f"{temp_history[0]},{time_end},{temp_history[1]}"
+
             for i in range(2,n):
                 if temp_history[i][-1] == "y":
-                    data_str += f",{temp_history[i]}"
+                    data_str += f",{temp_history[i][:-2]}"
+
             data_str += "\n"
             file.write(data_str)
     
