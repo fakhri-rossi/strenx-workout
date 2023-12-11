@@ -19,6 +19,8 @@ def edit_routine():
         edit(routine_name)
     else:
         print("Tidak jadi meng-update rutinitas")
+    
+    Utility.wait()
       
 def edit(routine_name):
     Database.refresh_temp_routines(routine_name)
@@ -94,6 +96,9 @@ def edit(routine_name):
                             delete_set(user_option[0])
                             break
 
+                        case "4":
+                            print("Opsi tidak tersedia")
+
         Utility.clear_screen()   
     # Database.clear_temp_routines()
 
@@ -121,7 +126,8 @@ def edit_set(index:int):
     Database.temp_routine[index] = data_str # update data
 
 def add_set(index:int):
-    data = Database.temp_routine[index]
+    data = Database.temp_routine[index][:-1]
+    data += "n"
     Database.temp_routine.insert(index+1,data)
 
 def delete_set(index:int):
@@ -140,7 +146,7 @@ def update_routine():
         # looping untuk menghilangkan status "done" pada masing2 exercise
         for i in range(1,n):
             if Database.temp_routine[i][-1] == "y" or Database.temp_routine[i][-1] == "n":
-                Database.temp_routine[i] = Database.temp_routine[i][:-1]
+                Database.temp_routine[i] = Database.temp_routine[i][:-2]
         
         Database.create()
     

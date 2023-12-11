@@ -84,6 +84,8 @@ def time_dict(time_str:str) -> dict:
     return dict1
 
 def history_page():
+    Utility.clear_screen()
+
     with open("history.txt", "r") as file:
         content = file.readlines()
         n_line = len(content)
@@ -116,7 +118,7 @@ def history_page():
             print("-"*50)
 
             View.print_routine(list_source = exercises)
-            
+
     Utility.wait()
             
 def clear_temp_history():
@@ -129,8 +131,9 @@ def refresh_temp_history():
 
 def create_temp_history():
     n = len(Database.temp_routine)
+    done_status = ["y","n"]
 
     for i in range(1,n):
         # if Database.temp_routine[i][-1] = 'y' or Database.temp_routine[i][-1] != "n":
-        if Database.temp_routine[i][-1] != 'y' and Database.temp_routine[i][-1] != "n":
+        if Database.temp_routine[i][-1] not in done_status:
             Database.temp_routine[i] = f"{Database.temp_routine[i]},n"

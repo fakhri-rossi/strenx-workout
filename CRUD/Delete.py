@@ -9,14 +9,16 @@ def delete_routine():
     print("="*51)
     # spill summarized routines
     View.print_summarized_routine()
+    print("\n0. Batal menghapus")
 
     while True:
-        print(Database.routines)
         try:
             index = int(input("Nomor rutinitas yang ingin dihapus: "))
-            if index < 1 or index > len(Database.routines):
+            if index < 0 or index > len(Database.routines):
                 print("Nomor rutinitas tidak tersedia!")
                 continue
+            elif index == 0:
+                return
             else:
                 break
         except:

@@ -1,4 +1,4 @@
-Push Up,20,-,-
+Push Up,40,-,-
 Push Up,20,-,-
 Push Up,20,-,-
 Bench Press,12,10,-

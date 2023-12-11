@@ -75,11 +75,12 @@ def print_routine(**kwargs):
 def print_running_workout():
     temp_data = Database.temp_routine
     n = len(temp_data)
-    routine_name = temp_data[0]
+    routine_name = temp_data[0] + name_space[len(temp_data[0]):]
+    Utility.sets_done_checking()
 
     # print heading
     print("\n" + "="*57)
-    print(routine_name)
+    print(routine_name + f" Sets done: {Database.sets_done}")
     print("="*57)
     print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer|Done?")
     print("-"*57)
@@ -93,6 +94,7 @@ def print_running_workout():
             timer = data_break[3] + time_space[len(data_break[3]):]
             no = f"{i}" + no_space[len(str(i)):]
             done = data_break[4]
+
             if done == "y":
                 done = "V"
             else:
@@ -102,6 +104,7 @@ def print_running_workout():
 
     else:
         print("Belum ada exercise apapun")
+
     print()
    
 

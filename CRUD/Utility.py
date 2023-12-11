@@ -82,16 +82,26 @@ def ask_reps() -> int:
      while True:
         try:
             reps = int(input("Reps: "))
+
+            if reps <= 0 or reps > 999:
+                print("Repetisi tidak masuk akal!")
+                continue
+
             return reps
         except:
             print("Masukkan Repetisi yang valid!")
       
 def ask_kg():
-    try:
-        kg = int(input("Berat beban: "))
-        return kg
-    except:
-        print("Masukkan berat yang valid!")
+    while True:
+        try:
+            kg = int(input("Berat beban (kg): "))
+            if kg < 0 or kg > 999:
+                print("Berat beban tidak masuk akal!")
+                continue
+
+            return kg
+        except:
+            print("Masukkan berat yang valid!")
 
 def ask_timer()-> str:
     while True:
@@ -101,10 +111,23 @@ def ask_timer()-> str:
             continue
         else:
             try:
-                inttime = int(timer[:2])
-                inttime = int(timer[3:])
-                return timer
+                # inttime = int(timer[:2])
+                # inttime = int(timer[3:])
+                if timer[:2].isnumeric() and timer[3:].isnumeric():
+                    return timer
+                else:
+                    print("Waktu tidak valid!")
             except:
                 print("Input valid time!")
                 continue
 
+def sets_done_checking():
+    data = Database.temp_routine
+    sets_done = 0
+    n = len(data)
+
+    for i  in range(1,n):
+        if data[i][-1] == "y":
+            sets_done += 1
+
+    Database.sets_done = sets_done

@@ -30,13 +30,7 @@ def run_page(routine_name):
     
     while is_continue:
         Utility.clear_screen()
-        print(History.temp_history)
-        print(Database.temp_routine)
         View.print_running_workout()
-
-        print("\n'nomor(spasi)opsi' untuk memilih")
-        print("Contoh: 3 1 untuk mengedit exercise no.3")
-
         print("_1 Edit")
         print("_2 Tambahkan set")
         print("_3 Hapus set")
@@ -47,6 +41,9 @@ def run_page(routine_name):
         print("01 Ceklis semua exercise")
         print("02 Selesai")
         print("03 Batalkan olahraga")
+
+        print("\nNomor(spasi)opsi untuk memilih")
+        print("Contoh: 3 1 untuk mengedit exercise no.3")
         
         while True:
             temp_data = Database.temp_routine
@@ -65,11 +62,17 @@ def run_page(routine_name):
 
                 case "02": 
                     agree = Utility.user_confirm("Selesai berolahraga?")
+                    if Database.sets_done < 1:
+                        print("Anda belum menyelesaikan latihan apapun")
+                        print("Anda tidak bisa merekap latihan")
+                        wait = input("Tekan enter untuk kembali")
+                        break
+                    
                     if agree:
                         History.add_history()
 
                         if routine_change:
-                            agree = Utility.user_confirm("APakah Anda ingin menyimpan perubahan pada rutinitas?")
+                            agree = Utility.user_confirm("Apakah Anda ingin menyimpan perubahan pada rutinitas?")
                             if agree:
                                 Edit.update_routine()
 

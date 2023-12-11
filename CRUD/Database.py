@@ -6,6 +6,8 @@ routines = []
 exercises = []
 temp_routine = []
 old_name = 0
+
+sets_done = 0
 # HATI-HATI, index 0 temp_routine berisi judul routine, sisanya data exercise
 
 # header => 33 spasi kosong sebelah kiri, 34 routine name, 33 spasi kosong kanan
