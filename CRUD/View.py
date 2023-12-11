@@ -1,4 +1,4 @@
-from . import Utility, Database, View
+from . import Utility, Database, View, History
 import os
 
 name_space = Database.TEMPLATE["exercise_name"]
@@ -72,9 +72,10 @@ def print_routine(**kwargs):
         print("Belum ada exercise apapun")
     print()
 
-def print_running_workout(routine_name):
-    data = Database.temp_history
-    n = len(data)
+def print_running_workout():
+    temp_data = Database.temp_routine
+    n = len(temp_data)
+    routine_name = temp_data[0]
 
     # print heading
     print("\n" + "="*57)
@@ -83,14 +84,14 @@ def print_running_workout(routine_name):
     print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer|Done?")
     print("-"*57)
 
-    if n > 2:
-        for i in range(2,n):
-            data_break = data[i].split(",")
+    if n > 1:
+        for i in range(1,n):
+            data_break = temp_data[i].split(",")
             name = data_break[0] + name_space[len(data_break[0]):]
             reps = data_break[1] + reps_space[len(data_break[1]):]
             kg = data_break[2] + kg_space[len(data_break[2]):]
             timer = data_break[3] + time_space[len(data_break[3]):]
-            no = f"{i-1}" + no_space[len(str(i)):]
+            no = f"{i}" + no_space[len(str(i)):]
             done = data_break[4]
             if done == "y":
                 done = "V"
@@ -198,6 +199,5 @@ def print_all_routines():
         Database.clear_temp_routines()
         print()
 
-    wait = input("Tekan enter untuk lanjut")
-
+    Utility.wait()
                

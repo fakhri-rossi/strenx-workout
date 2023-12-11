@@ -1,6 +1,9 @@
 import os
 from .import Database
 
+def wait():
+    wait = input("Tekan enter untuk lanjut ")
+
 def clear_screen():
     sistem_operasi = os.name
     match sistem_operasi:
@@ -104,3 +107,4 @@ def ask_timer()-> str:
             except:
                 print("Input valid time!")
                 continue
+

@@ -22,9 +22,9 @@ def run_routine():
         print("Tidak jadi menjalankan rutinitas")
 
 def run_page(routine_name):
-    time_start = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
+    History.time_start = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
     Database.refresh_temp_routines(routine_name)
-    History.create_temp_history(time_start, routine_name)
+    History.create_temp_history()
     is_continue = True
     routine_change = False
     
@@ -32,7 +32,7 @@ def run_page(routine_name):
         Utility.clear_screen()
         print(History.temp_history)
         print(Database.temp_routine)
-        View.print_running_workout(routine_name)
+        View.print_running_workout()
 
         print("\n'nomor(spasi)opsi' untuk memilih")
         print("Contoh: 3 1 untuk mengedit exercise no.3")
@@ -49,23 +49,30 @@ def run_page(routine_name):
         print("03 Batalkan olahraga")
         
         while True:
+            temp_data = Database.temp_routine
             user_option = input("\nPilihan Anda: ")
             match user_option:
                 case "00": 
                     View.select_exercise()
+                    routine_change = True
                     break
 
                 case "01": 
-                    data = History.temp_history
-                    n = len(data)
-                    for i in range(2, n):
-                        History.temp_history[i] = History.temp_history[i][:-1] + "y"
+                    n = len(temp_data)
+                    for i in range(1, n):
+                        temp_data[i] = temp_data[i][:-1] + "y"
                     break
 
                 case "02": 
                     agree = Utility.user_confirm("Selesai berolahraga?")
                     if agree:
-                        Database.add_history()
+                        History.add_history()
+
+                        if routine_change:
+                            agree = Utility.user_confirm("APakah Anda ingin menyimpan perubahan pada rutinitas?")
+                            if agree:
+                                Edit.update_routine()
+
                         is_continue = False
                         break
                     else:
@@ -81,15 +88,17 @@ def run_page(routine_name):
 
                 case _:
                     user_option = user_option.split(" ")
-                    if len(user_option) > 2:
+                    if len(user_option) != 2:
                         print("Masukkan opsi yang valid!")
                         continue
+
                     try:
-                        user_option[0] = int(user_option[0])# karena indeks isi ruitnitas dimulai dari 2
+                        user_option[0] = int(user_option[0])
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] >= len(Database.temp_routine) or user_option[0] < 1:
+
+                    if user_option[0] >= len(temp_data) or user_option[0] < 0:
                         print("Nomor exercise tidak ada")
                         continue
 
@@ -111,21 +120,26 @@ def run_page(routine_name):
                             break
 
                         case "4":
-                            check_set(user_option[0]+1)
+                            check_set(user_option[0])
                             break
 
                         case _:
                             print("Opsi tidak tersedia")
                             break
+                        
+        if routine_change:
+            History.create_temp_history()
+        #     wait = input(":")
 
         Utility.clear_screen()   
 
 def check_set(index:int):
-    if History.temp_history[index][-1] == "n":
-        History.temp_history[index] = History.temp_history[index][:-1] + "y"
+    data = Database.temp_routine
+    if data[index][-1] != "y":
+        data[index] = data[index][:-1] + "y"
 
-    elif History.temp_history[index][-1] == "y":
-        History.temp_history[index] = History.temp_history[index][:-1] + "n"
+    elif data[index][-1] == "y":
+        data[index] = data[index][:-1] + "n"
     else:
         print("Gagal mencentang")
     

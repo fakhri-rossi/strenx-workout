@@ -1,5 +1,4 @@
-Plank,-,-,01:00
-Plank,-,-,01:00
-Plank,-,-,01:00
-Push Up,40,-,-
-Lateral Raise,12,12,-
+Plank,-,-,02:00,
+Plank,-,-,01:00,
+Push Up,40,-,-,
+Lateral Raise,12,12,-,

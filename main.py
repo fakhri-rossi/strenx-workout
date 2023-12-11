@@ -23,7 +23,7 @@ if __name__=="__main__":
             case "3": CRUD.new_routine()
             case "4": CRUD.edit_routine()
             case "5": CRUD.delete_routine()
-            case "6": CRUD.history_read()
+            case "6": CRUD.history_page()
             case "0": break
             case _: print("Opsi tidak tersedia")
         

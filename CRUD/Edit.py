@@ -20,7 +20,6 @@ def edit_routine():
     else:
         print("Tidak jadi meng-update rutinitas")
       
-
 def edit(routine_name):
     Database.refresh_temp_routines(routine_name)
     is_continue = True
@@ -133,3 +132,18 @@ def rename_routine():
     Database.temp_routine[0] = new_name
     Database.create()
     # Database.refresh_temp_routines(new_name)
+
+def update_routine():
+    try:
+        n = len(Database.temp_routine)
+        
+        # looping untuk menghilangkan status "done" pada masing2 exercise
+        for i in range(1,n):
+            if Database.temp_routine[i][-1] == "y" or Database.temp_routine[i][-1] == "n":
+                Database.temp_routine[i] = Database.temp_routine[i][:-1]
+        
+        Database.create()
+    
+    except:
+        print("Gagal meng-update")
+        wait = input(":")

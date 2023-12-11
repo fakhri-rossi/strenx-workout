@@ -1,21 +1,23 @@
 from . import Utility, View, Database
 import time
 
+time_start = ""
 temp_history = []
 
 def add_history():
     try:
+        temp_data = Database.temp_routine
         with open("history.txt", 'a', encoding="utf-8") as file:
             time_end = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
-            n = len(temp_history)
+            n = len(temp_data)
 
             data_str = ""
             # time_start,time_end,routine_name,exercises...
-            data_str = f"{temp_history[0]},{time_end},{temp_history[1]}"
+            data_str = f"{time_start},{time_end},{temp_data[0]}"
 
-            for i in range(2,n):
-                if temp_history[i][-1] == "y":
-                    data_str += f",{temp_history[i][:-2]}"
+            for i in range(1,n):
+                if temp_data[i][-1] == "y":
+                    data_str += f",{temp_data[i][:-2]}"
 
             data_str += "\n"
             file.write(data_str)
@@ -23,23 +25,34 @@ def add_history():
     except:
         print('file history tidak ditemukan')
 
+def time_to_second(time_dict) -> int:
+    hour = int(time_dict["hour"])
+    minute = int(time_dict["minute"])
+    second = int(time_dict["second"])
+
+    second += (hour*3600) + (minute*60)
+    return second
+
 def str_duration(time_start:dict, time_end:dict) -> str:
+
+    time_start = time_to_second(time_start)
+    time_end = time_to_second(time_end)
+    duration = time_end - time_start
+
+    hour = int(duration / 3600)
+    minute = int(duration / 60) - (hour*60)
+    second = duration - (hour*3600) - (minute*60)
+
     duration = ""
-    hour = int(time_end["hour"]) - int(time_start["hour"])
+
     if hour < 1:  # kalau dibawah 1 jam maka jam tidak dispill
         hour = ""
     else:
         hour = f"{hour} jam"
 
-    minute = int(time_end["minute"]) - int(time_start["minute"])
-    minute = f"{minute} menit"
-
-    second = int(time_end["second"]) - int(time_start["second"])
-    second = f"{second} detik"
-
-    duration = f"{hour} {minute} {second}"
+    duration = f"{hour} {minute} menit {second} detik"
     return duration
-    
+
 
 def time_dict(time_str:str) -> dict:
     # time_start = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
@@ -70,7 +83,7 @@ def time_dict(time_str:str) -> dict:
 
     return dict1
 
-def history_read():
+def history_page():
     with open("history.txt", "r") as file:
         content = file.readlines()
         n_line = len(content)
@@ -103,21 +116,21 @@ def history_read():
             print("-"*50)
 
             View.print_routine(list_source = exercises)
-
-            wait = input("Tekan enter untuk lanjut")
+            
+    Utility.wait()
             
 def clear_temp_history():
     temp_history.clear()
     
-
-def create_temp_history(time_start:str, routine_name:str):
-    n = len(Database.temp_routine)
-    temp_history.clear()
-
-    for i in range(n):
-        temp_history.append(Database.temp_routine[i])
+def refresh_temp_history():
+    new_routine = Database.temp_routine
+    n = len(new_routine)
     
-    temp_history.insert(0, time_start)
-    n = len(temp_history)
-    for i in range(2,n):
-        temp_history[i] = f"{temp_history[i]},n"
+
+def create_temp_history():
+    n = len(Database.temp_routine)
+
+    for i in range(1,n):
+        # if Database.temp_routine[i][-1] = 'y' or Database.temp_routine[i][-1] != "n":
+        if Database.temp_routine[i][-1] != 'y' and Database.temp_routine[i][-1] != "n":
+            Database.temp_routine[i] = f"{Database.temp_routine[i]},n"
