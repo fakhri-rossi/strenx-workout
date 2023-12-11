@@ -80,4 +80,6 @@ def history_read():
             print("-"*50)
 
             View.print_routine(list_source = exercises)
+
+            wait = input("Tekan enter untuk lanjut")
             
