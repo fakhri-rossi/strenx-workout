@@ -69,7 +69,7 @@ def edit(routine_name):
 
                 case _:
                     user_option = user_option.split(" ")
-                    if len(user_option) > 2:
+                    if len(user_option) != 2:
                         print("Masukkan opsi yang valid!")
                         continue
                     try:
