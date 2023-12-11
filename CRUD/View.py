@@ -48,7 +48,7 @@ def print_routine(**kwargs):
         data = Database.temp_routine
         routine_name = Database.temp_routine[0]
         # print heading
-        print("\n" + "="*51)
+        print("="*51)
         print(routine_name)
         print("="*51)
 
@@ -111,7 +111,7 @@ def select_exercise():
     # ask user option
     while True:
         try:
-            user_option = int(input("No exercise yang ingin ditambah: ")) - 1
+            user_option = int(input("\nNo exercise yang ingin ditambah: ")) - 1
 
             if user_option >= n or user_option < 0:
                 print("Masukkan angka yang valid")
@@ -157,7 +157,6 @@ def print_summarized_routine():
         Database.clear_temp_routines()
         Database.create_temp_routine(title)
         data_temp = Database.temp_routine
-        name = data_temp[0]
         n = len(data_temp)
 
         if n > 1:
@@ -165,11 +164,25 @@ def print_summarized_routine():
             for i in range(1,n):
                 data_break = data_temp[i].split(",")
                 exercises.append(data_break[0])
-            exercises = ", ".join(exercises)
-        else:
-            exercises = "(tidak ada)"
 
-        print(f"{no}. {name}: {exercises}")
+            # menghitung jumlah set tiap gerakan di dalam rutinitas
+            exercise_name = set(exercises)
+            temp_dict = {}
+
+            for name in exercise_name:
+                temp_dict[name] = exercises.count(name)
+
+            exercises = ""
+            for key, item in temp_dict.items():
+                exercises += f"{key} {item} set, "
+            
+            exercises = exercises[:-2] # ngilangin koma dan spasi pada exerc terakhir
+
+        else:
+            exercises = "tidak ada"
+
+        name = data_temp[0] + name_space[len(data_temp[0]):]
+        print(f"{no}. {name}: [{exercises}]")
 
         no += 1
    

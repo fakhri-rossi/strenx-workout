@@ -27,7 +27,6 @@ def edit(routine_name):
     
     while is_continue:
         Utility.clear_screen()
-        print(Database.temp_routine)
         View.print_routine()
 
         print("\n'nomor(spasi)opsi' untuk memilih")

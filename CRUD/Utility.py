@@ -93,7 +93,7 @@ def ask_kg():
 def ask_timer()-> str:
     while True:
         timer = input("Time (mm:ss): ")
-        if timer[2] != ":":
+        if timer[2] != ":" or len(timer) != 5:
             print("Input valid time!")
             continue
         else:

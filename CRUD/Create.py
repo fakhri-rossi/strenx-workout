@@ -2,8 +2,9 @@ from . import Utility, Database, Edit
 
 def new_routine():
     Utility.clear_screen()
-    print("\n" + "="*100)
+    print("="*100)
     print("Membuat Rutinitas")
+    print("="*100)
 
     create_routine()
 
