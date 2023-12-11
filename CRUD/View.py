@@ -198,4 +198,6 @@ def print_all_routines():
         Database.clear_temp_routines()
         print()
 
+    wait = input("Tekan enter untuk lanjut")
+
                

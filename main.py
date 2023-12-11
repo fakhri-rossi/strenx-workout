@@ -27,6 +27,6 @@ if __name__=="__main__":
             case "0": break
             case _: print("Opsi tidak tersedia")
         
-        is_continue = input("Keluar? (y/n): ")
-        if is_continue.lower() == "y":
-            break
+        # is_continue = input("Keluar? (y/n): ")
+        # if is_continue.lower() == "y":
+        #     break
