@@ -1,4 +1,27 @@
-from . import Utility, View
+from . import Utility, View, Database
+import time
+
+temp_history = []
+
+def add_history():
+    try:
+        with open("history.txt", 'a', encoding="utf-8") as file:
+            time_end = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
+            n = len(temp_history)
+
+            data_str = ""
+            # time_start,time_end,routine_name,exercises...
+            data_str = f"{temp_history[0]},{time_end},{temp_history[1]}"
+
+            for i in range(2,n):
+                if temp_history[i][-1] == "y":
+                    data_str += f",{temp_history[i][:-2]}"
+
+            data_str += "\n"
+            file.write(data_str)
+    
+    except:
+        print('file history tidak ditemukan')
 
 def str_duration(time_start:dict, time_end:dict) -> str:
     duration = ""
@@ -83,3 +106,18 @@ def history_read():
 
             wait = input("Tekan enter untuk lanjut")
             
+def clear_temp_history():
+    temp_history.clear()
+    
+
+def create_temp_history(time_start:str, routine_name:str):
+    n = len(Database.temp_routine)
+    temp_history.clear()
+
+    for i in range(n):
+        temp_history.append(Database.temp_routine[i])
+    
+    temp_history.insert(0, time_start)
+    n = len(temp_history)
+    for i in range(2,n):
+        temp_history[i] = f"{temp_history[i]},n"

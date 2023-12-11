@@ -1,4 +1,4 @@
-from . import Database, Utility, View, Edit
+from . import Database, Utility, View, Edit, History
 import time
 
 def run_routine():
@@ -24,13 +24,13 @@ def run_routine():
 def run_page(routine_name):
     time_start = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
     Database.refresh_temp_routines(routine_name)
-    Database.create_temp_history(time_start, routine_name)
+    History.create_temp_history(time_start, routine_name)
     is_continue = True
     routine_change = False
     
     while is_continue:
         Utility.clear_screen()
-        print(Database.temp_history)
+        print(History.temp_history)
         print(Database.temp_routine)
         View.print_running_workout(routine_name)
 
@@ -56,10 +56,10 @@ def run_page(routine_name):
                     break
 
                 case "01": 
-                    data = Database.temp_history
+                    data = History.temp_history
                     n = len(data)
                     for i in range(2, n):
-                        Database.temp_history[i] = Database.temp_history[i][:-1] + "y"
+                        History.temp_history[i] = History.temp_history[i][:-1] + "y"
                     break
 
                 case "02": 
@@ -119,14 +119,13 @@ def run_page(routine_name):
                             break
 
         Utility.clear_screen()   
-    Database.clear_temp_routines()
 
 def check_set(index:int):
-    if Database.temp_history[index][-1] == "n":
-        Database.temp_history[index] = Database.temp_history[index][:-1] + "y"
+    if History.temp_history[index][-1] == "n":
+        History.temp_history[index] = History.temp_history[index][:-1] + "y"
 
-    elif Database.temp_history[index][-1] == "y":
-        Database.temp_history[index] = Database.temp_history[index][:-1] + "n"
+    elif History.temp_history[index][-1] == "y":
+        History.temp_history[index] = History.temp_history[index][:-1] + "n"
     else:
         print("Gagal mencentang")
     

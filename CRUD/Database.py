@@ -5,7 +5,6 @@ routine_path = "./routines/"
 routines = []
 exercises = []
 temp_routine = []
-temp_history = []
 old_name = 0
 # HATI-HATI, index 0 temp_routine berisi judul routine, sisanya data exercise
 
@@ -20,49 +19,6 @@ TEMPLATE = {
     "time": " "*5,
     "no": " "*4
 }
-
-def add_history():
-    try:
-        with open("history.txt", 'a', encoding="utf-8") as file:
-            time_end = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
-            n = len(temp_history)
-
-            data_str = ""
-            # time_start,time_end,routine_name,exercises...
-            data_str = f"{temp_history[0]},{time_end},{temp_history[1]}"
-
-            for i in range(2,n):
-                if temp_history[i][-1] == "y":
-                    data_str += f",{temp_history[i][:-2]}"
-
-            data_str += "\n"
-            file.write(data_str)
-    
-    except:
-        print('file history tidak ditemukan')
-
-
-
-def clear_temp_history():
-    temp_history.clear()
-
-def update_temp_history(index):
-    n = len(temp_history)
-    
-
-def create_temp_history(time_start:str,routine_name:str):
-    print(temp_routine)
-    n = len(temp_routine)
-    temp_history.clear()
-
-    for i in range(n):
-        temp_history.append(temp_routine[i])
-    
-    temp_history.insert(0, time_start)
-    n = len(temp_history)
-    for i in range(2,n):
-        temp_history[i] = f"{temp_history[i]},n"
-
 
 def clear_temp_routines():
     temp_routine.clear()
