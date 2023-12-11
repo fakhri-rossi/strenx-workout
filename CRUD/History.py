@@ -1,4 +1,4 @@
-from . import Utility, Operation
+from . import Utility, View
 
 def str_duration(time_start:dict, time_end:dict) -> str:
     duration = ""
@@ -79,5 +79,5 @@ def history_read():
             print(f"Durasi: {duration}")
             print("-"*50)
 
-            Operation.print_routine(list_source = exercises)
+            View.print_routine(list_source = exercises)
             

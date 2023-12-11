@@ -6,6 +6,7 @@ routines = []
 exercises = []
 temp_routine = []
 temp_history = []
+old_name = 0
 # HATI-HATI, index 0 temp_routine berisi judul routine, sisanya data exercise
 
 # header => 33 spasi kosong sebelah kiri, 34 routine name, 33 spasi kosong kanan
@@ -76,7 +77,6 @@ def create_temp_routine(routine_name:str):
             for line in content:
                 temp_routine.append(line[:-1])
 
-            # print(temp_routine)
     except:
         print("Gagal membuat temp routine")
 
@@ -121,14 +121,20 @@ def create():
         n = len(data)
         file_name = routine_path + routine_title + ".txt"
 
-        # me-remove file lama
-        os.remove(file_name)
-
         with open(file_name, "w", encoding='utf-8') as file:
             for i in range(1,n):
                 line = data[i] + "\n"
                 file.write(line)
-        # temp_routine.clear()
+
+        # me-remove file lama jika rutinitas di rename
+        global old_name
+        if old_name != 0:
+            old_file = f"./routines/{old_name}.txt"
+            print(old_file)
+            os.remove(old_file)
+            old_file = ""
+            old_name = 0
 
     except:
         print("Pembuatan rutinitas gagal")
+

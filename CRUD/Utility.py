@@ -1,5 +1,5 @@
 import os
-from .import Database, Operation
+from .import Database
 
 def clear_screen():
     sistem_operasi = os.name
