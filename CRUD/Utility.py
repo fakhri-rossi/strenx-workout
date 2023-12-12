@@ -95,7 +95,7 @@ def ask_kg():
     while True:
         try:
             kg = int(input("Berat beban (kg): "))
-            if kg < 0 or kg > 999:
+            if kg <= 0 or kg > 999:
                 print("Berat beban tidak masuk akal!")
                 continue
 
