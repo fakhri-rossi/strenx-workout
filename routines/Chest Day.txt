@@ -1,2 +1,6 @@
 Bench Press,12,12,-
 Bench Press,12,12,-
+Push Up,12,-,-
+Bench Press,12,12,-
+Push Up,20,-,-
+Bench Press,12,12,-
