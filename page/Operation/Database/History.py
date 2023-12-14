@@ -111,11 +111,11 @@ def clear_temp_history():
     
 
 def create_temp_history(time_start:str, routine_name:str):
-    n = len(Database.temp_routine)
+    n = len(Database.temp_list)
     temp_history.clear()
 
     for i in range(n):
-        temp_history.append(Database.temp_routine[i])
+        temp_history.append(Database.temp_list[i])
     
     temp_history.insert(0, time_start)
     n = len(temp_history)

@@ -1,7 +1,9 @@
-from . import Database, Utility, View, Edit, History
+from . import Database, Utility, View, Edit
 import time
 
-def run_routine():
+
+
+def run_page():
     Database.refresh_routines()
     Utility.clear_screen()
 
@@ -12,27 +14,26 @@ def run_routine():
 
     # spill summarized routines
     View.print_summarized_routine()
-    print("0. Batal")
+    # print("0. Batal")
     index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")
 
-    if index > -1:
-        routine_name = Database.routines[index]
-        run_page(routine_name)
+    if index < 0:
+        print("")
     else:
-        print("Tidak jadi menjalankan rutinitas")
+        routine_name = Database.routines[index]
+        run(routine_name)
 
-def run_page(routine_name):
-    time_start = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
-    Database.refresh_temp_routines(routine_name)
-    History.create_temp_history(time_start, routine_name)
+def run(routine_name):
+    Database.Database.time_start = Utility.get_current_time()
+    Database.create_temp_list(routine_name)
+    # Database.add_history()
     is_continue = True
     routine_change = False
     
     while is_continue:
         Utility.clear_screen()
-        print(History.temp_history)
-        print(Database.temp_routine)
-        View.print_running_workout(routine_name)
+        n_data = len(Database.Database.temp_list)
+        View.print_running_workout()
 
         print("\n'nomor(spasi)opsi' untuk memilih")
         print("Contoh: 3 1 untuk mengedit exercise no.3")
@@ -56,20 +57,29 @@ def run_page(routine_name):
                     break
 
                 case "01": 
-                    data = History.temp_history
-                    n = len(data)
-                    for i in range(2, n):
-                        History.temp_history[i] = History.temp_history[i][:-1] + "y"
+                    for i in range(2, n_data):
+                        Database.Database.temp_list[i] = Database.Database.temp_list[i][:-1] + "y"
                     break
 
                 case "02": 
-                    agree = Utility.user_confirm("Selesai berolahraga?")
-                    if agree:
-                        Database.add_history()
-                        is_continue = False
-                        break
+                    if n_data > 2:
+                        agree = Utility.user_confirm("Selesai berolahraga?")
+                        if agree:
+                            Database.Database.time_end = Utility.get_current_time()
+                            Database.write_history()
+                            is_continue = False
+                            break
+                        else:
+                            break
+                    # untuk antisipasi jika user menyelesaikan latihan kosong
                     else:
-                        break
+                        print("Anda belum menyelesaikan latihan apapun")
+                        print("Anda tidak bisa merekap latihan")
+                        exit = Utility.user_confirm("Apakah Anda ingin keluar?")
+
+                        if exit:
+                            is_continue = False
+                            break
 
                 case "03": 
                     agree = Utility.user_confirm("Yakin membatalkan olahraga?")
@@ -85,11 +95,11 @@ def run_page(routine_name):
                         print("Masukkan opsi yang valid!")
                         continue
                     try:
-                        user_option[0] = int(user_option[0])# karena indeks isi ruitnitas dimulai dari 2
+                        user_option[0] = int(user_option[0])# karena indeks isi rutinitas dimulai dari 1
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] >= len(Database.temp_routine) or user_option[0] < 1:
+                    if user_option[0] > len(n_data) or user_option[0] < 1:
                         print("Nomor exercise tidak ada")
                         continue
 
@@ -121,11 +131,11 @@ def run_page(routine_name):
         Utility.clear_screen()   
 
 def check_set(index:int):
-    if History.temp_history[index][-1] == "n":
-        History.temp_history[index] = History.temp_history[index][:-1] + "y"
+    if Database.Database.temp_list[index][-1] == "n":
+        Database.Database.temp_list[index] = Database.Database.temp_list[index][:-1] + "y"
 
-    elif History.temp_history[index][-1] == "y":
-        History.temp_history[index] = History.temp_history[index][:-1] + "n"
+    elif Database.Database.temp_list[index][-1] == "y":
+        Database.Database.temp_list[index] = Database.Database.temp_list[index][:-1] + "n"
     else:
         print("Gagal mencentang")
     

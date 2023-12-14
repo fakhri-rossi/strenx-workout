@@ -1,13 +1,16 @@
 from . import Utility, Database, View
 import os
 
-name_space = Database.TEMPLATE["exercise_name"]
-type_space = Database.TEMPLATE["exercise_name"]
-reps_space = Database.TEMPLATE["reps"]
-kg_space = Database.TEMPLATE["kg"]
-time_space = Database.TEMPLATE["time"]
-no_space = Database.TEMPLATE["no"]
-muscle_target = Database.TEMPLATE["muscle_target"]
+name_space = Database.Database.TEMPLATE["exercise_name"]
+type_space = Database.Database.TEMPLATE["exercise_name"]
+reps_space = Database.Database.TEMPLATE["reps"]
+kg_space = Database.Database.TEMPLATE["kg"]
+time_space = Database.Database.TEMPLATE["time"]
+no_space = Database.Database.TEMPLATE["no"]
+muscle_target = Database.Database.TEMPLATE["muscle_target"]
+
+routine_names = Database.Database.routine_names
+temp_list = Database.Database.temp_list
 
 def print_exercises():  
     # print heading
@@ -37,6 +40,40 @@ def print_exercises():
 
         print(f"{no}|{exercise_name}|{exercise_type}|{muscle_target}")
         counter += 1
+
+def print_detailed_routine(index):
+    if index < 0 or index > len(routine_names):
+        print("Nomor rutinitas tidak ada\n")
+        return
+    
+    else:
+        # indeks pertama temp_routine berisi nama routine
+        Database.Database.create_temp_list(routine_names[index])
+        routine_name = temp_list[0]
+        print("="*51)
+        print(routine_name)
+        print("="*51)
+
+        n = len(temp_list)
+
+        print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer")
+        print("-"*51)
+
+        if n > 1:
+            for i in range(1,n):
+                data_break = temp_list[i].split(",")
+                name = data_break[0] + name_space[len(data_break[0]):]
+                reps = data_break[1] + reps_space[len(data_break[1]):]
+                kg = data_break[2] + kg_space[len(data_break[2]):]
+                timer = data_break[3]
+                no = f"{i}" + no_space[len(str(i)):]
+
+                print(f"{no}|{name}|{reps}|{kg}|{timer}")
+
+        else:
+            print("Belum ada exercise apapun")
+        print()
+
 
 def print_routine(**kwargs):
     # kalo ada sumber dari list maka data akan diambil dari list tersebut
@@ -72,9 +109,10 @@ def print_routine(**kwargs):
         print("Belum ada exercise apapun")
     print()
 
-def print_running_workout(routine_name):
-    data = Database.temp_history
+def print_running_workout():
+    data = temp_list
     n = len(data)
+    routine_name = temp_list[0]
 
     # print heading
     print("\n" + "="*57)

@@ -1,4 +1,4 @@
-import os
+import os,time
 from .import Database
 
 def clear_screen():
@@ -50,16 +50,7 @@ def user_confirm(message:str) -> bool:
             return False
         else:
              print("Input jawaban yang valid!")
-
-def file_to_list(file_name:str) -> list:
-    line_list = []
-    with open(file_name, "r") as file:
-        content = file.readlines()
-
-        for line in content:
-            line_list.append(line[:-1])
-    return line_list
-    
+ 
 def ask_number(message:str) -> int:
     while True:
         try:
@@ -104,3 +95,6 @@ def ask_timer()-> str:
             except:
                 print("Input valid time!")
                 continue
+
+def get_current_time()->str:
+    return time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())

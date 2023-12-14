@@ -1,29 +1,27 @@
-import CRUD as CRUD
+import page as page
 
 if __name__=="__main__":
-    CRUD.init_app()
+    page.init_app()
     while True:
-        CRUD.refresh_routines()
-        CRUD.clear_screen()
+        page.refresh_routines()
+        page.clear_screen()
 
         print("Welcome to Strenx Workout!")
         print("===============================")
-        print("1. Jalankan Rutinitas")
-        print("2. Lihat Rutinitas")
-        print("3. Buat Rutinitas")
-        print("4. Edit Rutinitas")
-        print("5. Hapus Rutinitas")
-        print("6. Lihat Histori")
+        print("1. Lihat Rutinitas")
+        print("2. Lihat Histori Latihan")
+        print("3. Lihat Statistik")
+        # print("4. Lihat Rutinitas")
         print("0. Keluar")
 
         user_option = input("Masukan opsi: ")
         match user_option:
-            case "1": CRUD.run_routine( )
-            case "2": CRUD.print_all_routines()
-            case "3": CRUD.new_routine()
-            case "4": CRUD.edit_routine()
-            case "5": CRUD.delete_routine()
-            case "6": CRUD.history_read()
+            case "1": page.routine( )
+            case "2": page.print_all_routines()
+            case "3": page.new_routine()
+            case "4": page.edit_routine()
+            case "5": page.delete_routine()
+            case "6": page.history_read()
             case "0": break
             case _: print("Opsi tidak tersedia")
         
