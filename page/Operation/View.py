@@ -11,6 +11,8 @@ muscle_target = Database.Database.TEMPLATE["muscle_target"]
 
 routine_names = Database.Database.routine_names
 temp_list = Database.Database.temp_list
+exercises_dict = Database.Database.exercises
+# exercise_name = Database.Database.exercises[""]
 
 def print_exercises():  
     # print heading
@@ -20,21 +22,21 @@ def print_exercises():
     print(f"No  |Exercise Name" + " "*17 + "|Exercise Type" + " "*17 +"|Muscle Target" + " "*17)
     print("-"* 93)
 
-    n = len(Database.exercises)
+    n = len(exercises_dict)
 
     # print content
     counter = 1
     for i in range(n):
         str_counter = str(counter)
-        no = f"{str_counter + Database.TEMPLATE['no'][len(str_counter):]}"
+        no = f"{str_counter + no_space[len(str_counter):]}"
 
-        exercise_name = Database.exercises[i]["name"]
+        exercise_name = exercises_dict[i]["name"]
         exercise_name += name_space[len(exercise_name):]
 
-        exercise_type = Database.exercises[i]["type"]
+        exercise_type = exercises_dict[i]["type"]
         exercise_type += type_space[len(exercise_type):]
 
-        muscle_target = Database.exercises[i]["muscle_target"].split(" ")
+        muscle_target = exercises_dict[i]["muscle_target"].split(" ")
         muscle_target = ", ".join(muscle_target)
         muscle_target += muscle_target[len(muscle_target):]
 
@@ -75,19 +77,13 @@ def print_detailed_routine(index):
         print()
 
 
-def print_routine(**kwargs):
-    # kalo ada sumber dari list maka data akan diambil dari list tersebut
-    if "list_source" in kwargs:
-        data = kwargs["list_source"]
-    
-    # jika tidak maka mengambil data dari temp_routine
-    else:
-        data = Database.temp_routine
-        routine_name = Database.temp_routine[0]
-        # print heading
-        print("="*51)
-        print(routine_name)
-        print("="*51)
+def print_routine():        
+    data = temp_list
+    routine_name = temp_list[0]
+    # print heading
+    print("="*51)
+    print(routine_name)
+    print("="*51)
 
     n = len(data)
 
@@ -148,7 +144,7 @@ def print_running_workout():
 
 def select_exercise():
     print_exercises()
-    n = len(Database.exercises)
+    n = len(exercises_dict)
 
     # ask user option
     while True:
@@ -163,8 +159,8 @@ def select_exercise():
         except:
             print("Masukkan angka yang valid")
     
-    exercise_name = Database.exercises[user_option]["name"]
-    exercise_type = Database.exercises[user_option]["type"]
+    exercise_name = exercises_dict[user_option]["name"]
+    exercise_type = exercises_dict[user_option]["type"]
 
     while True:
         try:
@@ -183,7 +179,7 @@ def select_exercise():
 
             str_exercise = f"{exercise_name},{reps},{kg},{timer}"
 
-            Database.temp_routine.append(str_exercise)
+            Database.Database.temp_list.append(str_exercise)
             break
         
         except:
@@ -229,15 +225,15 @@ def print_summarized_routine():
         no += 1
    
 
-def print_all_routines():
-    Utility.clear_screen()
-    Database.refresh_routine_names()
+# def print_all_routines():
+#     Utility.clear_screen()
+#     Database.refresh_routine_names()
 
-    for routine in Database.Database.routine_names:
-        Database.Database.refresh_temp_routines(routine)
-        print_routine()
-        print()
+#     for routine in Database.Database.routine_names:
+#         Database.Database.refresh_temp_routines(routine)
+#         print_routine()
+#         print()
 
-    wait = input("Tekan enter untuk lanjut")
+#     wait = input("Tekan enter untuk lanjut")
 
                

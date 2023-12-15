@@ -24,7 +24,7 @@ def run_page():
     except:
         print("Masukkan angka, bukan yang lain")
 
-def run(index):
+def run(index:int):
     Database.Database.time_start = Utility.get_current_time()
     routine_name = Database.Database.routine_names[index]
     Database.create_temp_list(routine_name)
@@ -34,7 +34,9 @@ def run(index):
     
     while is_continue:
         Utility.clear_screen()
-        n_data = len(Database.Database.temp_list)
+        Database.Database.time_start = Utility.get_current_time()
+        temp_list = Database.Database.temp_list
+        n_data = len(temp_list)
         View.print_running_workout()
 
         print("\nnomor(spasi)opsi untuk memilih")
@@ -60,7 +62,7 @@ def run(index):
 
                 case "01": 
                     for i in range(1, n_data):
-                        Database.Database.temp_list[i] = Database.Database.temp_list[i][:-1] + "y"
+                        temp_list[i] = temp_list[i][:-1] + "y"
                     break
 
                 case "02": 
@@ -118,18 +120,18 @@ def run(index):
                             break
 
                         case "2":
+                            print("Edit set")
+                            Edit.edit_set(user_option[0])
+                            routine_change = True
+                            break
+
+                        case "3":
                             Edit.add_set(user_option[0])
                             routine_change = True               
                             break
 
-                        case "3":
-                            Edit.delete_set(user_option[0])
-                            routine_change = True
-                            break
-
                         case "4":
-                            print("Edit set")
-                            Edit.edit_set(user_option[0])
+                            Edit.delete_set(user_option[0])
                             routine_change = True
                             break
 
@@ -140,11 +142,12 @@ def run(index):
         Utility.clear_screen()   
 
 def check_set(index:int):
-    if Database.Database.temp_list[index][-1] == "n":
-        Database.Database.temp_list[index] = Database.Database.temp_list[index][:-1] + "y"
+    temp_list = Database.Database.temp_list
+    if temp_list[index][-1] == "n":
+        temp_list[index] = temp_list[index][:-1] + "y"
 
-    elif Database.Database.temp_list[index][-1] == "y":
-        Database.Database.temp_list[index] = Database.Database.temp_list[index][:-1] + "n"
+    elif temp_list[index][-1] == "y":
+        temp_list[index] = temp_list[index][:-1] + "n"
     else:
         print("Gagal mencentang")
     

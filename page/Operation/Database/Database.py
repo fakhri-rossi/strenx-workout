@@ -2,7 +2,8 @@ import os, time
 
 DB_NAME = "data.txt"
 routine_path = "./Page/Operation/Database/Data/routines/"
-exercises_path = "./Page/Operation/Database/Data/exercises.txt"
+exercises_path = "./Page/Operation/Database/Data/exercise.txt"
+history_file_path = "./Page/Operation/Database/Data/history.txt"
 routine_names = []
 exercises = []
 temp_list = []
@@ -23,9 +24,6 @@ TEMPLATE = {
     "no": " "*4
 }
 
-def clear_temp_list():
-    temp_list.clear()
-
 def create_temp_list(routine_name:str):
     file_name = routine_path + routine_name + ".txt"
     temp_list.clear()
@@ -42,8 +40,8 @@ def create_temp_list(routine_name:str):
 
 def write_history():
     try:
-        with open("history.txt", 'a', encoding="utf-8") as file:
-            time_end = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
+        global time_start, time_end
+        with open(history_file_path, 'a', encoding="utf-8") as file:
             n = len(temp_list)
 
             data_str = ""
@@ -69,7 +67,7 @@ def init_app():
     try:
         with open(exercises_path, "r", ) as file:
             content = file.readlines()
-
+            print(content)
             for line in content:
                 line_break = line.split(",")
                 exercise_name = line_break[0]
@@ -92,7 +90,7 @@ def refresh_routine_names():
                 routine_names.append(file[:-4])
 
 def refresh_temp_routines(routine_name:str):
-    clear_temp_list()
+    temp_list.clear()
     create_temp_list(routine_name)
 
 def write_routine():
@@ -111,7 +109,6 @@ def write_routine():
         global old_name
         if old_name != 0:
             old_file = f"{routine_path}{old_name}.txt"
-            print(old_file)
             os.remove(old_file)
             old_file = ""
             old_name = 0

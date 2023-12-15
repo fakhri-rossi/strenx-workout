@@ -1,27 +1,19 @@
 from . import Database, View, Utility
 
-def edit_routine():
-    Database.refresh_routines()
-    Utility.clear_screen()
+done_status = ["y","n"]
 
-    # heading
-    print("="*51)
-    print("Mengedit Rutinitas")
-    print("="*51)
-    # spill summarized routines
-    View.print_summarized_routine()
+def edit_page(**kwargs):
+    if "routine_name" in kwargs:
+        routine_name = kwargs["routine_name"]
 
-    print("0. Batal")
-    index = Utility.ask_number("Rutinitas yang ingin diupdate: ")
-
-    if index > -1:
-        routine_name = Database.routines[index]
-        edit(routine_name)
+    elif("index" in kwargs):
+        index = int(kwargs["index"])
+        routine_name = Database.Database.routine_names[index]
+    
     else:
-        print("Tidak jadi meng-update rutinitas")
-      
-
-def edit(routine_name):
+        print("Eror nama rutinitas tidak ditemukan")
+        return
+    
     Database.create_temp_list(routine_name)
     is_continue = True
     
@@ -60,7 +52,7 @@ def edit(routine_name):
 
                 case "02": 
                     # rename_routine()
-                    new_name = input("Nama rutinitas: ")
+                    new_name = Utility.ask_routine_name()
                     Database.Database.old_name = Database.Database.temp_list[0] # menyimpan nama rutinitas lama ke dalam variabel
                     Database.Database.temp_list[0] = new_name
                     routine_name = Database.Database.temp_list[0]
@@ -122,6 +114,9 @@ def edit_set(index:int):
 
 def add_set(index:int):
     data = Database.Database.temp_list[index]
+    if data[-1] in done_status:
+        data = data[:-2] + ",n"
+
     Database.Database.temp_list.insert(index+1,data)
 
 def delete_set(index:int):

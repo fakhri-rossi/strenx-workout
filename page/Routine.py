@@ -10,11 +10,11 @@ def routine():
         print("=========================")
         Operation.print_summarized_routine()
         print("=========================")
-        print("1_ Lihat Detail Rutinitas")
-        print("2_ Jalankan Rutinitas")
-        print("3_ Buat Rutinitas")
-        print("4_ Edit Rutinitas")
-        print("5_ Hapus Rutinitas")
+        print("_1 Lihat Detail Rutinitas")
+        print("_2 Jalankan Rutinitas")
+        print("_3 Buat Rutinitas")
+        print("_4 Edit Rutinitas")
+        print("_5 Hapus Rutinitas")
         print("0 Kembali")
 
         while True:
@@ -32,9 +32,9 @@ def routine():
                 continue
 
             try:
-                user_option[1] = int(user_option[1]) - 1 # karena indeks dimlai dari nol
+                user_option[0] = int(user_option[0]) - 1 # karena indeks dimlai dari nol
 
-                if user_option[1] < 0 or user_option[1] >= n_data:
+                if user_option[0] < 0 or user_option[0] >= n_data:
                     print("Nomor rutinitas tidak ada")
                     continue
 
@@ -42,30 +42,34 @@ def routine():
                 print("Nomor exercise tidak valid")
                 continue
 
-            match user_option[0]:
+            match user_option[1]:
                 case "1":
                     Operation.Utility.clear_screen()
-                    Operation.print_detailed_routine(user_option[1])
+                    Operation.print_detailed_routine(user_option[0])
                     agree = Operation.Utility.user_confirm("Apakah Anda ingin menjalankan rutinitas ini?")
 
                     if agree:
-                        Operation.run(user_option[1])
+                        Operation.run(user_option[0])
                         is_continue = False
                         break
                     else:
                         break
                     
                 case "2":
-                    Operation.run_routine()
+                    Operation.run(user_option[0])
+                    is_continue = False
+                    break
                 case "3":
                     Operation.create_routine()
+                    is_continue = False
+                    break
                 case "4":
-                    Operation.edit_routine()
+                    Operation.edit_page(index = user_option[0])
+                    is_continue = False
+                    break
                 case "5":
                     Operation.delete_routine()
-                # case "0":
-                #     is_continue = False
-                #     return
+                    break
                 case _:
                     print("Opsi tidak valid")
             
