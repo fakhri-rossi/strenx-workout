@@ -6,7 +6,10 @@ def clear_screen():
     match sistem_operasi:
             case "posix": os.system("clear")
             case "nt": os.system("cls")
-          
+
+def wait():
+    wait = input("Enter untuk melanjutkan")
+       
 def month_to_name(month:int) -> str:
     month = int(month)
     match month:
@@ -114,8 +117,8 @@ def ask_routine_name()->str:
     while True:
         routine_name = input("Nama Rutinitas: ")   
 
-        if routine_name not in Database.routines:
-            Database.Database.temp_list.append(routine_name = routine_name)
+        if routine_name not in Database.Database.routine_names:
+            Database.Database.temp_list.append(routine_name)
             Database.Database.write_routine()
             return routine_name
 

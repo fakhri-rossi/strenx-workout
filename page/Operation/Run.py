@@ -1,28 +1,28 @@
 from . import Database, Utility, View, Edit
 import time
 
-def run_page():
-    Database.refresh_routines()
-    Utility.clear_screen()
+# def run_page():
+#     Database.refresh_routines()
+#     Utility.clear_screen()
 
-    # heading
-    print("="*51)
-    print("Jalankan Rutinitas")
-    print("="*51)
+#     # heading
+#     print("="*51)
+#     print("Jalankan Rutinitas")
+#     print("="*51)
 
-    # spill summarized routines
-    View.print_summarized_routine()
-    # print("0. Batal")
+#     # spill summarized routines
+#     View.print_summarized_routine()
+#     # print("0. Batal")
 
-    try:
-        index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")-1
+#     try:
+#         index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")-1
 
-        if index < 0 or index >= len(Database.Database.routine_names):
-            print("")
-        else:
-            run(index)
-    except:
-        print("Masukkan angka, bukan yang lain")
+#         if index < 0 or index >= len(Database.Database.routine_names):
+#             print("")
+#         else:
+#             run(index)
+#     except:
+#         print("Masukkan angka, bukan yang lain")
 
 def run(index:int):
     Database.Database.time_start = Utility.get_current_time()
@@ -72,6 +72,7 @@ def run(index:int):
                             Database.Database.time_end = Utility.get_current_time()
                             Database.write_history()
                             is_continue = False
+                            Utility.wait()
                             
                         else:
                             break
@@ -110,7 +111,7 @@ def run(index:int):
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] >= n_data or user_option[0] < 0:
+                    if user_option[0] >= n_data or user_option[0] < 1:
                         print("Nomor exercise tidak ada")
                         continue
 

@@ -45,9 +45,12 @@ def edit_page(**kwargs):
                     if agree:
                         Database.write_routine()
                         is_continue = False
+                        Utility.wait()
                 
                     else:
                         is_continue = False
+                        print("Rutinitas tidak disimpan")
+                        Utility.wait()
                     break
 
                 case "02": 

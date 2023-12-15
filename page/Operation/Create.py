@@ -6,7 +6,7 @@ def new_routine():
     print("Membuat Rutinitas")
     print("="*100)
 
-    Database.clear_temp_routines()
+    Database.Database.temp_list.clear()
     # Membuat judul rutinitas
     routine_name = Utility.ask_routine_name()  
     Edit.edit_page(routine_name = routine_name)

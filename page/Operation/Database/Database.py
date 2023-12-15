@@ -54,6 +54,7 @@ def write_history():
 
             data_str += "\n"
             file.write(data_str)
+            print("Berhasil merekap latihan")
 
     except:
         print('file history tidak ditemukan')
@@ -67,7 +68,6 @@ def init_app():
     try:
         with open(exercises_path, "r", ) as file:
             content = file.readlines()
-            print(content)
             for line in content:
                 line_break = line.split(",")
                 exercise_name = line_break[0]
@@ -112,14 +112,16 @@ def write_routine():
             os.remove(old_file)
             old_file = ""
             old_name = 0
+        print("Berhasil menyimpan rutinitas")
 
     except:
         print("Pembuatan rutinitas gagal")
 
 def delete_routine(routine_name:str):
-    file_path = f"{routine_path}{routine_name}"
+    file_path = f"{routine_path}{routine_name}.txt"
     try:
         os.remove(file_path)
+        print("Berhasil menghapus Rutinitas")
     except:
         print("Gagal menghapus rutinitas")
 

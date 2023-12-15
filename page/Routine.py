@@ -10,18 +10,25 @@ def routine():
         print("=========================")
         Operation.print_summarized_routine()
         print("=========================")
+        print("Opsi:")
         print("_1 Lihat Detail Rutinitas")
         print("_2 Jalankan Rutinitas")
-        print("_3 Buat Rutinitas")
-        print("_4 Edit Rutinitas")
-        print("_5 Hapus Rutinitas")
+        print("_3 Edit Rutinitas")
+        print("_4 Hapus Rutinitas")
+        print("\nOpsi lain:")
         print("0 Kembali")
+        print("1 Buat rutinitas baru")
 
         while True:
             n_data = Operation.Utility.get_routine_total()
 
             user_option = input("\nopsi(spasi)nomor rutinitas: ")
             if user_option == "0":
+                is_continue = False
+                break
+
+            elif user_option == "1":
+                Operation.new_routine()
                 is_continue = False
                 break
 
@@ -59,17 +66,16 @@ def routine():
                     Operation.run(user_option[0])
                     is_continue = False
                     break
+
                 case "3":
-                    Operation.create_routine()
-                    is_continue = False
-                    break
-                case "4":
                     Operation.edit_page(index = user_option[0])
                     is_continue = False
                     break
-                case "5":
-                    Operation.delete_routine()
+
+                case "4":
+                    Operation.delete_routine(user_option[0])
                     break
+
                 case _:
                     print("Opsi tidak valid")
             
