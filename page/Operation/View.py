@@ -121,15 +121,19 @@ def print_running_workout():
     print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer|Done?")
     print("-"*57)
 
-    if n > 2:
-        for i in range(2,n):
+    if n > 1:
+        for i in range(1,n):
+            if temp_list[i].count(",") == 3:
+                Database.Database.temp_list[i] = f"{Database.Database.temp_list[i]},n"
+
             data_break = data[i].split(",")
             name = data_break[0] + name_space[len(data_break[0]):]
             reps = data_break[1] + reps_space[len(data_break[1]):]
             kg = data_break[2] + kg_space[len(data_break[2]):]
             timer = data_break[3] + time_space[len(data_break[3]):]
-            no = f"{i-1}" + no_space[len(str(i)):]
+            no = f"{i}" + no_space[len(str(i)):]
             done = data_break[4]
+
             if done == "y":
                 done = "V"
             else:

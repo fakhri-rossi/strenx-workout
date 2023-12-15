@@ -110,7 +110,7 @@ def write_routine():
         # me-remove file lama jika rutinitas di rename
         global old_name
         if old_name != 0:
-            old_file = f"./routines/{old_name}.txt"
+            old_file = f"{routine_path}{old_name}.txt"
             print(old_file)
             os.remove(old_file)
             old_file = ""
@@ -125,3 +125,27 @@ def delete_routine(routine_name:str):
         os.remove(file_path)
     except:
         print("Gagal menghapus rutinitas")
+
+def update_routine():
+    try:
+        data = temp_list
+        routine_title = data[0]
+        n = len(data)
+        file_name = routine_path + routine_title + ".txt"
+
+        with open(file_name, "w", encoding='utf-8') as file:
+            for i in range(1,n):
+                line = data[i][:-2] + "\n"
+                file.write(line)
+
+        # me-remove file lama jika rutinitas di rename
+        global old_name
+        if old_name != 0:
+            old_file = f"{routine_path}{old_name}.txt"
+            print(old_file)
+            os.remove(old_file)
+            old_file = ""
+            old_name = 0
+
+    except:
+        print("Pembuatan rutinitas gagal")

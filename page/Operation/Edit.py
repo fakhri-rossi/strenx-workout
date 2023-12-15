@@ -51,7 +51,7 @@ def edit(routine_name):
                 case "01": 
                     agree = Utility.user_confirm("Simpan perubahan rutinitas?")
                     if agree:
-                        Database.create()
+                        Database.write_routine()
                         is_continue = False
                 
                     else:
@@ -61,9 +61,9 @@ def edit(routine_name):
                 case "02": 
                     # rename_routine()
                     new_name = input("Nama rutinitas: ")
-                    Database.old_name = Database.temp_routine[0] # menyimpan nama rutinitas lama ke dalam variabel
-                    Database.temp_routine[0] = new_name
-                    routine_name = Database.temp_routine[0]
+                    Database.Database.old_name = Database.Database.temp_list[0] # menyimpan nama rutinitas lama ke dalam variabel
+                    Database.Database.temp_list[0] = new_name
+                    routine_name = Database.Database.temp_list[0]
                     break
 
                 case _:
@@ -76,7 +76,7 @@ def edit(routine_name):
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] >= len(Database.temp_routine) or user_option[0] < 1:
+                    if user_option[0] >= len(Database.Database.temp_list) or user_option[0] < 1:
                         print("Nomor exercise tidak ada")
                         continue
 
@@ -118,14 +118,14 @@ def edit_set(index:int):
         timer = "-"
 
     data_str = f"{data_break[0]},{reps},{kg},{timer}"
-    Database.temp_routine[index] = data_str # update data
+    Database.Database.temp_list[index] = data_str # update data
 
 def add_set(index:int):
-    data = Database.temp_routine[index]
-    Database.temp_routine.insert(index+1,data)
+    data = Database.Database.temp_list[index]
+    Database.Database.temp_list.insert(index+1,data)
 
 def delete_set(index:int):
-    Database.temp_routine.pop(index)
+    Database.Database.temp_list.pop(index)
 
 def rename_routine():
     new_name = input("Nama rutinitas: ")

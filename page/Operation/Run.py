@@ -37,13 +37,13 @@ def run(index):
         n_data = len(Database.Database.temp_list)
         View.print_running_workout()
 
-        print("\n'nomor(spasi)opsi' untuk memilih")
+        print("\nnomor(spasi)opsi untuk memilih")
         print("Contoh: 3 1 untuk mengedit exercise no.3")
 
-        print("_1 Edit")
-        print("_2 Tambahkan set")
-        print("_3 Hapus set")
-        print("_4 Ceklis/batalkan ceklis set")
+        print("_1 Ceklis set/batalkan ceklis set")
+        print("_2 Edit exercise")
+        print("_3 Duplikatkan exercise")
+        print("_4 Hapus exercise")
 
         print("\nOpsi lain: ")
         print("00 Menambahkan exercise")
@@ -52,14 +52,14 @@ def run(index):
         print("03 Batalkan olahraga")
         
         while True:
-            user_option = input("\nPilihan Anda: ")
+            user_option = input("\nnomor(spasi)opsi: ")
             match user_option:
                 case "00": 
                     View.select_exercise()
                     break
 
                 case "01": 
-                    for i in range(2, n_data):
+                    for i in range(1, n_data):
                         Database.Database.temp_list[i] = Database.Database.temp_list[i][:-1] + "y"
                     break
 
@@ -70,9 +70,16 @@ def run(index):
                             Database.Database.time_end = Utility.get_current_time()
                             Database.write_history()
                             is_continue = False
-                            break
+                            
                         else:
                             break
+
+                        if routine_change:
+                            print("Anda merubah susunan rutinitas")
+                            agree = Utility.user_confirm("Apakah Anda ingin mengupdate rutinitas?")
+                            if agree:
+                                Database.update_routine()
+                        break
                     # untuk antisipasi jika user menyelesaikan latihan kosong
                     else:
                         print("Anda belum menyelesaikan latihan apapun")
@@ -93,7 +100,7 @@ def run(index):
 
                 case _:
                     user_option = user_option.split(" ")
-                    if len(user_option) > 2:
+                    if len(user_option) != 2:
                         print("Masukkan opsi yang valid!")
                         continue
                     try:
@@ -101,15 +108,13 @@ def run(index):
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] > len(n_data) or user_option[0] < 1:
+                    if user_option[0] >= n_data or user_option[0] < 0:
                         print("Nomor exercise tidak ada")
                         continue
 
                     match user_option[1]:
                         case "1":
-                            print("Edit set")
-                            Edit.edit_set(user_option[0])
-                            routine_change = True
+                            check_set(user_option[0])
                             break
 
                         case "2":
@@ -123,12 +128,14 @@ def run(index):
                             break
 
                         case "4":
-                            check_set(user_option[0]+1)
+                            print("Edit set")
+                            Edit.edit_set(user_option[0])
+                            routine_change = True
                             break
 
                         case _:
                             print("Opsi tidak tersedia")
-                            break
+                            continue
 
         Utility.clear_screen()   
 
