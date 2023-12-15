@@ -22,7 +22,7 @@ def edit_routine():
       
 
 def edit(routine_name):
-    Database.refresh_temp_routines(routine_name)
+    Database.create_temp_list(routine_name)
     is_continue = True
     
     while is_continue:
@@ -40,7 +40,6 @@ def edit(routine_name):
         print("00 Menambahkan exercise")
         print("01 Keluar")
         print("02 Rename rutinitas")
-        
 
         while True:
             user_option = input("\nPilihan Anda: ")
@@ -99,7 +98,7 @@ def edit(routine_name):
     # Database.clear_temp_routines()
 
 def edit_set(index:int):
-    data = Database.temp_routine[index]
+    data = Database.Database.temp_list[index]
     data_break = data.split(",")
 
     # reps
@@ -130,6 +129,10 @@ def delete_set(index:int):
 
 def rename_routine():
     new_name = input("Nama rutinitas: ")
-    Database.temp_routine[0] = new_name
-    Database.create()
+    while True:
+        if new_name in Database.Database.routine_names:
+            print("Nama rutinitas sudah ada")
+        else:
+            Database.Database.temp_list[0] = new_name
+            # Database.write_routine()
     # Database.refresh_temp_routines(new_name)

@@ -1,4 +1,4 @@
-from . import Utility, Database, View
+from . import Utility, Database
 import os
 
 name_space = Database.Database.TEMPLATE["exercise_name"]
@@ -42,7 +42,7 @@ def print_exercises():
         counter += 1
 
 def print_detailed_routine(index):
-    if index < 0 or index > len(routine_names):
+    if index < 0 or index >= len(routine_names):
         print("Nomor rutinitas tidak ada\n")
         return
     
@@ -187,20 +187,20 @@ def select_exercise():
 
 
 def print_summarized_routine():
-
-    Database.refresh_routines()
-    titles = Database.routines
+    Database.Database.refresh_routine_names()
+    routine_names = Database.Database.routine_names
     no = 1
-    for title in titles:
-        Database.clear_temp_routines()
-        Database.create_temp_routine(title)
-        data_temp = Database.temp_routine
-        n = len(data_temp)
+
+    for routine_name in routine_names:
+        # Database.clear_temp_routines()
+        Database.create_temp_list(routine_name)
+        temp_data = Database.Database.temp_list
+        n = len(Database.Database.temp_list)
 
         if n > 1:
             exercises = []
             for i in range(1,n):
-                data_break = data_temp[i].split(",")
+                data_break = temp_data[i].split(",")
                 exercises.append(data_break[0])
 
             # menghitung jumlah set tiap gerakan di dalam rutinitas
@@ -219,7 +219,7 @@ def print_summarized_routine():
         else:
             exercises = "tidak ada"
 
-        name = data_temp[0] + name_space[len(data_temp[0]):]
+        name = temp_data[0] + name_space[len(temp_data[0]):]
         print(f"{no}. {name}: [{exercises}]")
 
         no += 1
@@ -227,13 +227,11 @@ def print_summarized_routine():
 
 def print_all_routines():
     Utility.clear_screen()
-    Database.clear_temp_routines()
-    Database.refresh_routines()
+    Database.refresh_routine_names()
 
-    for routine in Database.routines:
-        Database.refresh_temp_routines(routine)
-        View.print_routine()
-        Database.clear_temp_routines()
+    for routine in Database.Database.routine_names:
+        Database.Database.refresh_temp_routines(routine)
+        print_routine()
         print()
 
     wait = input("Tekan enter untuk lanjut")

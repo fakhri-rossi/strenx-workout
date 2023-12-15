@@ -1,8 +1,8 @@
 import os, time
 
 DB_NAME = "data.txt"
-routine_path = "./Data/routines/"
-exercises_path = "./Data/exercises.txt"
+routine_path = "./Page/Operation/Database/Data/routines/"
+exercises_path = "./Page/Operation/Database/Data/exercises.txt"
 routine_names = []
 exercises = []
 temp_list = []
@@ -23,11 +23,11 @@ TEMPLATE = {
     "no": " "*4
 }
 
-def clear_temp_routines():
+def clear_temp_list():
     temp_list.clear()
 
 def create_temp_list(routine_name:str):
-    file_name = "./routines/"+routine_name+".txt"
+    file_name = routine_path + routine_name + ".txt"
     temp_list.clear()
     temp_list.append(routine_name)
 
@@ -83,15 +83,16 @@ def init_app():
     except:
         print("Gagal membuka database exercise")
 
-def refresh_routines():
+def refresh_routine_names():
     routine_names.clear()
+    
     for (root, dirs, files) in os.walk(routine_path):
         for file in files:
             if ".txt" in file:
                 routine_names.append(file[:-4])
 
-def refresh_temp_routines(routine_name):
-    clear_temp_routines()
+def refresh_temp_routines(routine_name:str):
+    clear_temp_list()
     create_temp_list(routine_name)
 
 def write_routine():
@@ -118,3 +119,9 @@ def write_routine():
     except:
         print("Pembuatan rutinitas gagal")
 
+def delete_routine(routine_name:str):
+    file_path = f"{routine_path}{routine_name}"
+    try:
+        os.remove(file_path)
+    except:
+        print("Gagal menghapus rutinitas")

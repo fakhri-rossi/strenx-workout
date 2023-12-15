@@ -1,8 +1,6 @@
 from . import Database, Utility, View, Edit
 import time
 
-
-
 def run_page():
     Database.refresh_routines()
     Utility.clear_screen()
@@ -15,16 +13,20 @@ def run_page():
     # spill summarized routines
     View.print_summarized_routine()
     # print("0. Batal")
-    index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")
 
-    if index < 0:
-        print("")
-    else:
-        routine_name = Database.routines[index]
-        run(routine_name)
+    try:
+        index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")-1
 
-def run(routine_name):
+        if index < 0 or index >= len(Database.Database.routine_names):
+            print("")
+        else:
+            run(index)
+    except:
+        print("Masukkan angka, bukan yang lain")
+
+def run(index):
     Database.Database.time_start = Utility.get_current_time()
+    routine_name = Database.Database.routine_names[index]
     Database.create_temp_list(routine_name)
     # Database.add_history()
     is_continue = True

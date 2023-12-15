@@ -98,3 +98,6 @@ def ask_timer()-> str:
 
 def get_current_time()->str:
     return time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
+
+def get_routine_total()->int:
+    return len(Database.Database.routine_names)
