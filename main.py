@@ -22,7 +22,7 @@ if __name__=="__main__":
                     page.routine( )
                     break
                 case "2": 
-                    print("Melihat histori")
+                    page.history_page()
                     break
                 case "3": 
                     print("Melihat statistik")

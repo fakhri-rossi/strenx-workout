@@ -73,7 +73,7 @@ def ask_reps() -> int:
      while True:
         try:
             reps = int(input("Reps: "))
-            if reps > 100 or reps < 1:
+            if reps > 200 or reps < 1:
                 print("Repetisi tidak masuk akal!")
                 continue
             return reps
@@ -126,7 +126,22 @@ def ask_routine_name()->str:
             print("Rutinitas sudah ada, buat nama lain")
 
 def get_current_time()->str:
-    return time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
+    current_time = time.strftime("%Y-%m-%d-%H-%M-%S-%z", time.gmtime())
+    current_time = current_time.split("-")
+    hour = int(current_time[3])
+    gmt = int(current_time[6][1:3])
+
+    hour += gmt
+    
+    if len(str(hour)) < 2:
+        hour = "0" + str(hour)
+    else:
+        hour = str(hour)
+    
+    current_time[3] = hour
+    current_time = '-'.join(current_time)
+
+    return current_time
 
 def get_routine_total()->int:
     return len(Database.Database.routine_names)

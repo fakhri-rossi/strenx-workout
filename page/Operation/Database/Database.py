@@ -148,3 +148,8 @@ def update_routine():
 
     except:
         print("Pembuatan rutinitas gagal")
+
+def read_history():
+    with open(history_file_path, "r") as file:
+        content = file.readlines()
+    return content

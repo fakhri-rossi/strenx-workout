@@ -34,7 +34,6 @@ def run(index:int):
     
     while is_continue:
         Utility.clear_screen()
-        Database.Database.time_start = Utility.get_current_time()
         temp_list = Database.Database.temp_list
         n_data = len(temp_list)
         View.print_running_workout()

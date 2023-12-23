@@ -1,0 +1,9 @@
+Push Up,40,-,-
+Push Up,40,-,-
+Push Up,40,-,-
+Bench Press,12,10,-
+Bench Press,12,10,-
+Bench Press,12,10,-
+Lateral Raise,12,10,-
+Lateral Raise,12,10,-
+Lateral Raise,12,10,-

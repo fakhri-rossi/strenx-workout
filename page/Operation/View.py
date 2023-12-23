@@ -223,17 +223,8 @@ def print_summarized_routine():
         print(f"{no}. {name}: [{exercises}]")
 
         no += 1
-   
+           
 
-# def print_all_routines():
-#     Utility.clear_screen()
-#     Database.refresh_routine_names()
-
-#     for routine in Database.Database.routine_names:
-#         Database.Database.refresh_temp_routines(routine)
-#         print_routine()
-#         print()
-
-#     wait = input("Tekan enter untuk lanjut")
-
-               
+def print_summarized_history():
+    
+    pass
