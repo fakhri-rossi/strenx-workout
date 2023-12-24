@@ -12,7 +12,6 @@ if __name__=="__main__":
         print("===============================")
         print("1. Lihat Rutinitas")
         print("2. Lihat Histori Latihan")
-        print("3. Lihat Statistik")
         print("0. Keluar")
 
         while True:
@@ -23,9 +22,6 @@ if __name__=="__main__":
                     break
                 case "2": 
                     page.history_page()
-                    break
-                case "3": 
-                    print("Melihat statistik")
                     break
                 case "0": 
                     is_continue = False
