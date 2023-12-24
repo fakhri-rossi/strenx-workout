@@ -191,38 +191,40 @@ def print_summarized_routine():
     routine_names = Database.Database.routine_names
     no = 1
 
-    for routine_name in routine_names:
-        # Database.clear_temp_routines()
-        Database.create_temp_list(routine_name)
-        temp_data = Database.Database.temp_list
-        n = len(Database.Database.temp_list)
+    if len(Database.Database.routine_names) > 1:
+        for routine_name in routine_names:
+            Database.create_temp_list(routine_name)
+            temp_data = Database.Database.temp_list
+            n = len(Database.Database.temp_list)
 
-        if n > 1:
-            exercises = []
-            for i in range(1,n):
-                data_break = temp_data[i].split(",")
-                exercises.append(data_break[0])
+            if n > 1:
+                exercises = []
+                for i in range(1,n):
+                    data_break = temp_data[i].split(",")
+                    exercises.append(data_break[0])
 
-            # menghitung jumlah set tiap gerakan di dalam rutinitas
-            exercise_name = set(exercises)
-            temp_dict = {}
+                # menghitung jumlah set tiap gerakan di dalam rutinitas
+                exercise_name = set(exercises)
+                temp_dict = {}
 
-            for name in exercise_name:
-                temp_dict[name] = exercises.count(name)
+                for name in exercise_name:
+                    temp_dict[name] = exercises.count(name)
 
-            exercises = ""
-            for key, item in temp_dict.items():
-                exercises += f"{key} {item} set, "
-            
-            exercises = exercises[:-2] # ngilangin koma dan spasi pada exerc terakhir
+                exercises = ""
+                for key, item in temp_dict.items():
+                    exercises += f"{key} {item} set, "
+                
+                exercises = exercises[:-2] # ngilangin koma dan spasi pada exerc terakhir
 
+            else:
+                exercises = "tidak ada"
+
+            name = temp_data[0] + name_space[len(temp_data[0]):]
+            print(f"{no}. {name}: [{exercises}]")
+
+            no += 1
         else:
-            exercises = "tidak ada"
-
-        name = temp_data[0] + name_space[len(temp_data[0]):]
-        print(f"{no}. {name}: [{exercises}]")
-
-        no += 1
+            print("Belum ada rutinitas yang terdaftar")
            
 
 def print_summarized_history():

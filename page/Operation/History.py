@@ -57,45 +57,49 @@ def print_history():
     content = Database.read_history()
     n_line = len(content)
 
-    num = 1
-    for i in range(n_line-1, -1, -1):
-    # time_start,time_end,routine_name,exercises...
-        exercises = []
-        exercises_dict = {}
-        data_break = content[i].split(",")
-        n = len(data_break)
+    if content != 0:
+        num = 1
+        for i in range(n_line-1, -1, -1):
+        # time_start,time_end,routine_name,exercises...
+            exercises = []
+            exercises_dict = {}
+            data_break = content[i].split(",")
+            n = len(data_break)
 
-        time_start = time_to_dict(data_break[0])
-        time_end = time_to_dict(data_break[1])
+            time_start = time_to_dict(data_break[0])
+            time_end = time_to_dict(data_break[1])
 
-        date = time_start["date"]
-        month = Utility.month_to_name(time_start["month"])
-        year = time_start["year"]
+            date = time_start["date"]
+            month = Utility.month_to_name(time_start["month"])
+            year = time_start["year"]
 
-        duration = str_duration(time_start, time_end)
-        routine_name = data_break[2]
-        data_break[-1] = data_break[-1][:-1] #buat ngilangin /n
+            duration = str_duration(time_start, time_end)
+            routine_name = data_break[2]
+            data_break[-1] = data_break[-1][:-1] #buat ngilangin /n
 
-        for i in range(3, n, 4):
-        # exercise_name,reps,kg,timer
-            exercises.append(data_break[i])
+            for i in range(3, n, 4):
+            # exercise_name,reps,kg,timer
+                exercises.append(data_break[i])
+            
+            if len(exercises) > 0:
+                for exercise in exercises:
+                    exercises_dict[exercise] = exercises.count(exercise)
+
+                exercises = ''
+                for key, value in exercises_dict.items():
+                    exercises += f"{key} {value} set, "
+
+                exercises = exercises[:-2] # buat ngilangin ', ' di akhir
+            else:
+                exercises = "Tidak ada"
+
+            print(f"{num}. {date} {month} {year} | {time_start['hour']}:{time_start['minute']} | {duration}")
+            print(f"{routine_name} | [{exercises}]")
+            # print("-"*50)
+            print()
+
+            num +=1   
         
-        if len(exercises) > 0:
-            for exercise in exercises:
-                exercises_dict[exercise] = exercises.count(exercise)
-
-            exercises = ''
-            for key, value in exercises_dict.items():
-                exercises += f"{key} {value} set, "
-
-            exercises = exercises[:-2] # buat ngilangin ', ' di akhir
         else:
-            exercises = "Tidak ada"
-
-        print(f"{num}. {date} {month} {year} | {time_start['hour']}:{time_start['minute']} | {duration}")
-        print(f"{routine_name} | [{exercises}]")
-        # print("-"*50)
-        print()
-
-        num +=1   
+            print("Belum ada histori latihan")
 
