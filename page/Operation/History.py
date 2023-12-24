@@ -100,6 +100,6 @@ def print_history():
 
             num +=1   
         
-        else:
-            print("Belum ada histori latihan")
+    else:
+        print("Belum ada histori latihan")
 

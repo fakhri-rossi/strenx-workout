@@ -191,7 +191,7 @@ def print_summarized_routine():
     routine_names = Database.Database.routine_names
     no = 1
 
-    if len(Database.Database.routine_names) > 1:
+    if len(Database.Database.routine_names) > 0:
         for routine_name in routine_names:
             Database.create_temp_list(routine_name)
             temp_data = Database.Database.temp_list
@@ -223,8 +223,8 @@ def print_summarized_routine():
             print(f"{no}. {name}: [{exercises}]")
 
             no += 1
-        else:
-            print("Belum ada rutinitas yang terdaftar")
+    else:
+        print("Belum ada rutinitas yang terdaftar")
            
 
 def print_summarized_history():
