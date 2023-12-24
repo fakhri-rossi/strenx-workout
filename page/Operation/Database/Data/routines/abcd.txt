@@ -1,3 +1,0 @@
-Pull Up,12,-,-
-Pull Up,12,-,-
-Pull Up,12,-,-
