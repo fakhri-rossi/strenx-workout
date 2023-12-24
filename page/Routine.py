@@ -22,7 +22,7 @@ def routine():
         while True:
             n_data = Operation.Utility.get_routine_total()
 
-            user_option = input("\nopsi(spasi)nomor rutinitas: ")
+            user_option = input("\nnomor rutinitas(spasi)opsi: ")
             if user_option == "0":
                 is_continue = False
                 break
