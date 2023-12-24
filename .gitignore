@@ -1,2 +1,3 @@
-# page/Operation/Database/Data/history.txt
-# page/Operation/Database/Data/routines/
+page/Operation/Database/Data/history.txt
+page/Operation/Database/Data/routines/
+__pycache__
