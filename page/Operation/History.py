@@ -1,9 +1,5 @@
-from . import Utility, View
+from . import Utility
 from .Database import Database
-import time
-
-temp_history = []
-
 
 def str_duration(time_start:dict, time_end:dict) -> str:
     time_start = int(time_start['hour'])*3600 + int(time_start['minute'])*60 + int(time_start["second"])
@@ -79,7 +75,6 @@ def print_history():
         duration = str_duration(time_start, time_end)
         routine_name = data_break[2]
         data_break[-1] = data_break[-1][:-1] #buat ngilangin /n
-        # exercises.append(routine_name)
 
         for i in range(3, n, 4):
         # exercise_name,reps,kg,timer
@@ -97,11 +92,10 @@ def print_history():
         else:
             exercises = "Tidak ada"
 
-        print(f"{num}. {date} {month} {year} | {time_start['hour']}:{time_start['minute']} | {duration} | {routine_name} | [{exercises}]")
-        # print(f"{routine_name}")
-        # print(exercises)
-        # print(f"Durasi: {duration}")
-        print("-"*50)
+        print(f"{num}. {date} {month} {year} | {time_start['hour']}:{time_start['minute']} | {duration}")
+        print(f"{routine_name} | [{exercises}]")
+        # print("-"*50)
+        print()
 
         num +=1   
 

@@ -1,34 +1,9 @@
-from . import Database, Utility, View, Edit
-import time
-
-# def run_page():
-#     Database.refresh_routines()
-#     Utility.clear_screen()
-
-#     # heading
-#     print("="*51)
-#     print("Jalankan Rutinitas")
-#     print("="*51)
-
-#     # spill summarized routines
-#     View.print_summarized_routine()
-#     # print("0. Batal")
-
-#     try:
-#         index = Utility.ask_number("Rutinitas yang ingin dijalankan: ")-1
-
-#         if index < 0 or index >= len(Database.Database.routine_names):
-#             print("")
-#         else:
-#             run(index)
-#     except:
-#         print("Masukkan angka, bukan yang lain")
+from . import Database, Utility, View, CRUD
 
 def run(index:int):
     Database.Database.time_start = Utility.get_current_time()
     routine_name = Database.Database.routine_names[index]
     Database.create_temp_list(routine_name)
-    # Database.add_history()
     is_continue = True
     routine_change = False
     
@@ -121,17 +96,17 @@ def run(index:int):
 
                         case "2":
                             print("Edit set")
-                            Edit.edit_set(user_option[0])
+                            CRUD.edit_set(user_option[0])
                             routine_change = True
                             break
 
                         case "3":
-                            Edit.add_set(user_option[0])
+                            CRUD.add_set(user_option[0])
                             routine_change = True               
                             break
 
                         case "4":
-                            Edit.delete_set(user_option[0])
+                            CRUD.delete_set(user_option[0])
                             routine_change = True
                             break
 

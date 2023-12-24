@@ -7,3 +7,9 @@ Bench Press,12,10,-
 Lateral Raise,12,10,-
 Lateral Raise,12,10,-
 Lateral Raise,12,10,-
+Diamond Push Up,20,-,-
+Diamond Push Up,20,-,-
+Diamond Push Up,20,-,-
+Pull Up,12,-,-
+Pull Up,12,-,-
+Pull Up,12,-,-

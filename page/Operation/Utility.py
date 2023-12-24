@@ -1,6 +1,8 @@
 import os,time
 from .import Database
 
+done_status = ["y","n"]
+
 def clear_screen():
     sistem_operasi = os.name
     match sistem_operasi:
@@ -145,3 +147,44 @@ def get_current_time()->str:
 
 def get_routine_total()->int:
     return len(Database.Database.routine_names)
+
+def edit_set(index:int):
+    data = Database.Database.temp_list[index]
+    data_break = data.split(",")
+
+    # reps
+    if data_break[1] != "-":
+        reps = ask_reps()
+    else:
+        reps = "-"
+    # kg
+    if data_break[2] != "-":
+        kg = ask_kg()
+    else:
+        kg = "-"
+    # timer
+    if data_break[3] != "-":
+        timer = ask_timer()
+    else:
+        timer = "-"
+
+    data_str = f"{data_break[0]},{reps},{kg},{timer}"
+    Database.Database.temp_list[index] = data_str # update data
+
+def add_set(index:int):
+    data = Database.Database.temp_list[index]
+    if data[-1] in done_status:
+        data = data[:-2] + ",n"
+
+    Database.Database.temp_list.insert(index+1,data)
+
+def delete_set(index:int):
+    Database.Database.temp_list.pop(index)
+
+def rename_routine():
+    new_name = input("Nama rutinitas: ")
+    while True:
+        if new_name in Database.Database.routine_names:
+            print("Nama rutinitas sudah ada")
+        else:
+            Database.Database.temp_list[0] = new_name

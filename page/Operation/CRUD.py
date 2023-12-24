@@ -1,17 +1,37 @@
-from . import Database, View, Utility
+from . import Utility, Database, View
 
-done_status = ["y","n"]
+def new_routine():
+    Utility.clear_screen()
+    print("="*100)
+    print("Membuat Rutinitas")
+    print("="*100)
+
+    Database.Database.temp_list.clear()
+    # Membuat judul rutinitas
+    routine_name = Utility.ask_routine_name()  
+    edit_page(routine_name = routine_name)
+
+def delete_routine(index):
+    routine_name = Database.Database.routine_names[index]
+    agree = Utility.user_confirm(f"Yakin ingin menghapus {routine_name}?")
+
+    if agree:
+        Database.delete_routine(routine_name)
+    else:
+        print("Tidak jadi menghapus")
+    
+    Utility.wait()
 
 def edit_page(**kwargs):
     if "routine_name" in kwargs:
         routine_name = kwargs["routine_name"]
 
-    elif("index" in kwargs):
+    elif "index" in kwargs:
         index = int(kwargs["index"])
         routine_name = Database.Database.routine_names[index]
     
     else:
-        print("Eror nama rutinitas tidak ditemukan")
+        print("Eror: rutinitas tidak ditemukan")
         return
     
     Database.create_temp_list(routine_name)
@@ -78,59 +98,16 @@ def edit_page(**kwargs):
                     match user_option[1]:
                         case "1":
                             print("Edit set")
-                            edit_set(user_option[0])
+                            Utility.edit_set(user_option[0])
                             break
 
                         case "2":
-                            add_set(user_option[0])
+                            Utility.add_set(user_option[0])
                             break
 
                         case "3":
-                            delete_set(user_option[0])
+                            Utility.delete_set(user_option[0])
                             break
 
         Utility.clear_screen()   
-    # Database.clear_temp_routines()
 
-def edit_set(index:int):
-    data = Database.Database.temp_list[index]
-    data_break = data.split(",")
-
-    # reps
-    if data_break[1] != "-":
-        reps = Utility.ask_reps()
-    else:
-        reps = "-"
-    # kg
-    if data_break[2] != "-":
-        kg = Utility.ask_kg()
-    else:
-        kg = "-"
-    # timer
-    if data_break[3] != "-":
-        timer = Utility.ask_timer()
-    else:
-        timer = "-"
-
-    data_str = f"{data_break[0]},{reps},{kg},{timer}"
-    Database.Database.temp_list[index] = data_str # update data
-
-def add_set(index:int):
-    data = Database.Database.temp_list[index]
-    if data[-1] in done_status:
-        data = data[:-2] + ",n"
-
-    Database.Database.temp_list.insert(index+1,data)
-
-def delete_set(index:int):
-    Database.Database.temp_list.pop(index)
-
-def rename_routine():
-    new_name = input("Nama rutinitas: ")
-    while True:
-        if new_name in Database.Database.routine_names:
-            print("Nama rutinitas sudah ada")
-        else:
-            Database.Database.temp_list[0] = new_name
-            # Database.write_routine()
-    # Database.refresh_temp_routines(new_name)

@@ -4,6 +4,7 @@ def history_page():
     is_continue = True
 
     while is_continue:
+        Operation.clear_screen()
         print("="*50)
         print("Histori Rutinitas")
         print("="*50)
