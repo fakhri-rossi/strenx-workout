@@ -112,7 +112,6 @@ def write_routine():
             os.remove(old_file)
             old_file = ""
             old_name = 0
-        print("Berhasil menyimpan rutinitas")
 
     except:
         print("Pembuatan rutinitas gagal")

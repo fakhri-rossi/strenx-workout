@@ -121,7 +121,7 @@ def ask_routine_name()->str:
 
         if routine_name not in Database.Database.routine_names:
             Database.Database.temp_list.append(routine_name)
-            Database.Database.write_routine()
+            # Database.Database.write_routine()
             return routine_name
 
         else:

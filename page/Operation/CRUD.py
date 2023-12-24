@@ -8,8 +8,17 @@ def new_routine():
 
     Database.Database.temp_list.clear()
     # Membuat judul rutinitas
-    routine_name = Utility.ask_routine_name()  
-    edit_page(routine_name = routine_name)
+    routine_name = Utility.ask_routine_name()
+    agree = Utility.user_confirm(f"Apakah Anda ingin membuat {routine_name}?")
+    if agree:
+        Database.Database.write_routine()
+        print("Rutinitas berhasil dibuat")
+        Utility.wait()
+        edit_page(routine_name = routine_name)
+    else:
+        print("Rutinitas tidak jadi dibuat")
+        Utility.wait()
+        return        
 
 def delete_routine(index):
     routine_name = Database.Database.routine_names[index]
