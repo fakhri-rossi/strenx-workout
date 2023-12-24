@@ -12,7 +12,6 @@ muscle_target = Database.Database.TEMPLATE["muscle_target"]
 routine_names = Database.Database.routine_names
 temp_list = Database.Database.temp_list
 exercises_dict = Database.Database.exercises
-# exercise_name = Database.Database.exercises[""]
 
 def print_exercises():  
     # print heading
@@ -36,7 +35,7 @@ def print_exercises():
         exercise_type = exercises_dict[i]["type"]
         exercise_type += type_space[len(exercise_type):]
 
-        muscle_target = exercises_dict[i]["muscle_target"].split(" ")
+        muscle_target = exercises_dict[i]["muscle_target"].split("-")
         muscle_target = ", ".join(muscle_target)
         muscle_target += muscle_target[len(muscle_target):]
 

@@ -1,11 +1,11 @@
-Push Up,body-weight,chest tricep
+Push Up,body-weight,chest-tricep
 Plank,time-based,abdominals
-Bench Press,weight-based,chest shoulder
+Bench Press,weight-based,chest-shoulder
 Lateral Raise,weight-based,shoulder
-Diamond Push Up,body-weight,chest tricep
+Diamond Push Up,body-weight,lower chest-tricep
 Arnold Press,weight-based,shoulder
-Reverse Fly,weight-based,shoulder
-Pull Up,body-weight,back lats
+Reverse Fly,weight-based,rear shoulder
+Pull Up,body-weight,back-lats
 Side Plank,time-based,abdominals
-Jump Squat,body-weight,quadriceps hamstrings gluts
+Jump Squat,body-weight,quadriceps-hamstrings-gluts
 Bicycle Crunch,body-weight,abdominals

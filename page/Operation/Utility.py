@@ -86,7 +86,7 @@ def ask_reps() -> int:
 def ask_kg():
     while True:
         try:
-            kg = int(input("Berat beban: "))
+            kg = int(input("Berat beban (kg): "))
             if kg > 999 or kg < 1:
                 print("Berat beban tidak masuk akal!")
                 continue
