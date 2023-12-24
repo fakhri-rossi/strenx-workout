@@ -1,9 +1,11 @@
 import os, time
 
 DB_NAME = "data.txt"
-routine_path = "./Page/Operation/Database/Data/routines/"
 exercises_path = "./Page/Operation/Database/Data/exercise.txt"
 history_file_path = "./Page/Operation/Database/Data/history.txt"
+dirname = os.path.dirname(__file__)
+routine_path = os.path.join(dirname, "Data\\routines\\")
+
 routine_names = []
 exercises = []
 temp_list = []
@@ -60,11 +62,12 @@ def write_history():
         print('file history tidak ditemukan')
 
 def init_app():
-    for (root, dirs, files) in os.walk(routine_path):
-        for file in files:
-            if ".txt" in file:
-                routine_names.append(file[:-4])
-   
+    # file checking
+    if not os.path.isdir(routine_path):
+        os.mkdir(routine_path)
+
+    refresh_routine_names()
+
     try:
         with open(exercises_path, "r", ) as file:
             content = file.readlines()
