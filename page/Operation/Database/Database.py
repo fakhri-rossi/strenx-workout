@@ -5,6 +5,7 @@ exercises_path = "./Page/Operation/Database/Data/exercise.txt"
 history_file_path = "./Page/Operation/Database/Data/history.txt"
 dirname = os.path.dirname(__file__)
 routine_path = os.path.join(dirname, "Data\\routines\\")
+history_path = os.path.join(dirname, "Data\\history.txt")
 
 routine_names = []
 exercises = []
@@ -65,6 +66,10 @@ def init_app():
     # file checking
     if not os.path.isdir(routine_path):
         os.mkdir(routine_path)
+
+    if not os.path.isdir(history_path):
+        with open(history_path, "w", encoding='utf-8') as file:
+            file.write("")
 
     refresh_routine_names()
 
