@@ -12,3 +12,4 @@
 2023-12-23-08-11-20-+0700,2023-12-23-08-13-10-+0700,Leg Day,Plank,-,-,01:00,Plank,-,-,01:00,Plank,-,-,01:00
 2023-12-23-15-17-29-+0700,2023-12-23-15-17-39-+0700,Shoulder Day,Push Up,30,-,-,Push Up,30,-,-,Push Up,14,-,-,Lateral Raise,12,12,-
 2023-12-24-14-37-09-+0700,2023-12-24-14-37-58-+0700,Chest Day,Push Up,40,-,-,Push Up,40,-,-,Push Up,40,-,-,Bench Press,12,10,-,Bench Press,12,10,-,Bench Press,12,10,-,Diamond Push Up,20,-,-,Diamond Push Up,20,-,-,Diamond Push Up,20,-,-,Pull Up,12,-,-,Pull Up,12,-,-,Pull Up,12,-,-
+2023-12-24-16-41-24-+0700,2023-12-24-16-41-29-+0700,abcd,Pull Up,12,-,-,Pull Up,12,-,-,Pull Up,12,-,-
