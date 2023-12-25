@@ -2,7 +2,7 @@ import sys, os
 previous_dirname = os.path.dirname(__file__) + "\.."
 sys.path.append(previous_dirname)
 
-from Operation import Utility, History, Database
+from Operation import Utility, Database
 
 def history_page():
     is_continue = True
