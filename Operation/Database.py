@@ -25,6 +25,33 @@ TEMPLATE = {
     "no": " "*4
 }
 
+def init_app():
+    # file checking
+    if not os.path.isdir(routine_path):
+        os.mkdir(routine_path)
+
+    if not os.path.isfile(history_path):
+        with open(history_path, "w", encoding='utf-8') as file:
+            file.write("")
+
+    refresh_routine_names()
+
+    try:
+        with open(exercises_path, "r", ) as file:
+            content = file.readlines()
+            for line in content:
+                line_break = line.split(",")
+                exercise_name = line_break[0]
+                exercise_type = line_break[1]
+                muscle_target = line_break[2][:-1]
+
+                exercises.append({"name":exercise_name,
+                                    "type": exercise_type,
+                                    "muscle_target": muscle_target})
+            
+    except:
+        print("Gagal membuka database exercise")
+
 def create_temp_list(routine_name:str):
     file_name = routine_path + routine_name + ".txt"
     temp_list.clear()
@@ -59,33 +86,6 @@ def write_history():
 
     except:
         print('file history tidak ditemukan')
-
-def init_app():
-    # file checking
-    if not os.path.isdir(routine_path):
-        os.mkdir(routine_path)
-
-    if not os.path.isdir(history_path):
-        with open(history_path, "w", encoding='utf-8') as file:
-            file.write("")
-
-    refresh_routine_names()
-
-    try:
-        with open(exercises_path, "r", ) as file:
-            content = file.readlines()
-            for line in content:
-                line_break = line.split(",")
-                exercise_name = line_break[0]
-                exercise_type = line_break[1]
-                muscle_target = line_break[2][:-1]
-
-                exercises.append({"name":exercise_name,
-                                    "type": exercise_type,
-                                    "muscle_target": muscle_target})
-            
-    except:
-        print("Gagal membuka database exercise")
 
 def refresh_routine_names():
     routine_names.clear()
