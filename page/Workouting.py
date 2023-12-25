@@ -1,17 +1,30 @@
-from . import Database, Utility, View, CRUD
+import sys, os
+previous_dirname = os.path.dirname(__file__) + "\.."
+sys.path.append(previous_dirname)
 
-def run(index:int):
-    Database.Database.time_start = Utility.get_current_time()
-    routine_name = Database.Database.routine_names[index]
+from Operation import CRUD, Database, Utility
+
+name_space = Database.TEMPLATE["exercise_name"]
+type_space = Database.TEMPLATE["exercise_name"]
+reps_space = Database.TEMPLATE["reps"]
+kg_space = Database.TEMPLATE["kg"]
+time_space = Database.TEMPLATE["time"]
+no_space = Database.TEMPLATE["no"]
+muscle_target = Database.TEMPLATE["muscle_target"]
+
+temp_list = Database.temp_list
+
+def workouting_page(index:int):
+    Database.time_start = Utility.get_current_time()
+    routine_name = Database.routine_names[index]
     Database.create_temp_list(routine_name)
     is_continue = True
     routine_change = False
     
     while is_continue:
         Utility.clear_screen()
-        temp_list = Database.Database.temp_list
         n_data = len(temp_list)
-        View.print_running_workout()
+        print_running_workout()
 
         print("\nnomor(spasi)opsi untuk memilih")
         print("Contoh: 3 1 untuk mengedit exercise no.3")
@@ -31,7 +44,7 @@ def run(index:int):
             user_option = input("\nnomor(spasi)opsi: ")
             match user_option:
                 case "00": 
-                    View.select_exercise()
+                    CRUD.select_exercise()
                     break
 
                 case "01": 
@@ -43,7 +56,7 @@ def run(index:int):
                     if n_data > 2:
                         agree = Utility.user_confirm("Selesai berolahraga?")
                         if agree:
-                            Database.Database.time_end = Utility.get_current_time()
+                            Database.time_end = Utility.get_current_time()
                             Database.write_history()
                             is_continue = False
                             Utility.wait()
@@ -117,7 +130,6 @@ def run(index:int):
         Utility.clear_screen()   
 
 def check_set(index:int):
-    temp_list = Database.Database.temp_list
     if temp_list[index][-1] == "n":
         temp_list[index] = temp_list[index][:-1] + "y"
 
@@ -126,3 +138,39 @@ def check_set(index:int):
     else:
         print("Gagal mencentang")
     
+def print_running_workout():
+    data = temp_list
+    n = len(data)
+    routine_name = temp_list[0]
+
+    # print heading
+    print("\n" + "="*57)
+    print(routine_name)
+    print("="*57)
+    print("No  |Exercise" + " "*22 + "|Reps|Kg  |Timer|Done?")
+    print("-"*57)
+
+    if n > 1:
+        for i in range(1,n):
+            if temp_list[i].count(",") == 3:
+                Database.temp_list[i] = f"{Database.temp_list[i]},n"
+
+            data_break = data[i].split(",")
+            name = data_break[0] + name_space[len(data_break[0]):]
+            reps = data_break[1] + reps_space[len(data_break[1]):]
+            kg = data_break[2] + kg_space[len(data_break[2]):]
+            timer = data_break[3] + time_space[len(data_break[3]):]
+            no = f"{i}" + no_space[len(str(i)):]
+            done = data_break[4]
+
+            if done == "y":
+                done = "V"
+            else:
+                done = "O"
+
+            print(f"{no}|{name}|{reps}|{kg}|{timer}|  {done}  ")
+
+    else:
+        print("Belum ada exercise apapun")
+    print()
+   

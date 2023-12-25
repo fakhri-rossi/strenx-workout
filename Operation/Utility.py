@@ -1,7 +1,8 @@
 import os,time
-from .import Database
+from . import Database
 
 done_status = ["y","n"]
+routine_names = Database.routine_names
 
 def clear_screen():
     sistem_operasi = os.name
@@ -55,21 +56,6 @@ def user_confirm(message:str) -> bool:
             return False
         else:
              print("Input jawaban yang valid!")
- 
-def ask_number(message:str) -> int:
-    while True:
-        try:
-            index = int(input(message))-1
-            if index < -1 or index >= len(Database.routines):
-                print("Nomor rutinitas tidak tersedia!")
-                continue
-
-            else:
-                routine_name = Database.routines[index]
-                return index
-
-        except:
-            print("Masukkan angka valid!")
 
 def ask_reps() -> int:
      while True:
@@ -119,9 +105,8 @@ def ask_routine_name()->str:
     while True:
         routine_name = input("Nama Rutinitas: ")   
 
-        if routine_name not in Database.Database.routine_names:
-            Database.Database.temp_list.append(routine_name)
-            # Database.Database.write_routine()
+        if routine_name not in routine_names:
+            Database.temp_list.append(routine_name)
             return routine_name
 
         else:
@@ -146,10 +131,10 @@ def get_current_time()->str:
     return current_time
 
 def get_routine_total()->int:
-    return len(Database.Database.routine_names)
+    return len(routine_names)
 
 def edit_set(index:int):
-    data = Database.Database.temp_list[index]
+    data = Database.temp_list[index]
     data_break = data.split(",")
 
     # reps
@@ -169,22 +154,14 @@ def edit_set(index:int):
         timer = "-"
 
     data_str = f"{data_break[0]},{reps},{kg},{timer}"
-    Database.Database.temp_list[index] = data_str # update data
+    Database.temp_list[index] = data_str # update data
 
 def add_set(index:int):
-    data = Database.Database.temp_list[index]
+    data = Database.temp_list[index]
     if data[-1] in done_status:
         data = data[:-2] + ",n"
 
-    Database.Database.temp_list.insert(index+1,data)
+    Database.temp_list.insert(index+1,data)
 
 def delete_set(index:int):
-    Database.Database.temp_list.pop(index)
-
-def rename_routine():
-    new_name = input("Nama rutinitas: ")
-    while True:
-        if new_name in Database.Database.routine_names:
-            print("Nama rutinitas sudah ada")
-        else:
-            Database.Database.temp_list[0] = new_name
+    Database.temp_list.pop(index)

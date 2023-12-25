@@ -1,4 +1,21 @@
-from . import Utility, Database, View
+import sys, os
+previous_dirname = os.path.dirname(__file__) + "\.."
+sys.path.append(previous_dirname)
+
+from . import Utility, Database
+from Page import Routine
+
+temp_list = Database.temp_list
+routine_names = Database.routine_names
+exercises_dict = Database.exercises
+
+name_space = Database.TEMPLATE["exercise_name"]
+type_space = Database.TEMPLATE["exercise_name"]
+reps_space = Database.TEMPLATE["reps"]
+kg_space = Database.TEMPLATE["kg"]
+time_space = Database.TEMPLATE["time"]
+no_space = Database.TEMPLATE["no"]
+muscle_target = Database.TEMPLATE["muscle_target"]
 
 def new_routine():
     Utility.clear_screen()
@@ -6,12 +23,12 @@ def new_routine():
     print("Membuat Rutinitas")
     print("="*100)
 
-    Database.Database.temp_list.clear()
+    Database.temp_list.clear()
     # Membuat judul rutinitas
     routine_name = Utility.ask_routine_name()
     agree = Utility.user_confirm(f"Apakah Anda ingin membuat {routine_name}?")
     if agree:
-        Database.Database.write_routine()
+        Database.write_routine()
         print("Rutinitas berhasil dibuat")
         Utility.wait()
         edit_page(routine_name = routine_name)
@@ -21,7 +38,7 @@ def new_routine():
         return        
 
 def delete_routine(index):
-    routine_name = Database.Database.routine_names[index]
+    routine_name = Database.routine_names[index]
     agree = Utility.user_confirm(f"Yakin ingin menghapus {routine_name}?")
 
     if agree:
@@ -37,7 +54,7 @@ def edit_page(**kwargs):
 
     elif "index" in kwargs:
         index = int(kwargs["index"])
-        routine_name = Database.Database.routine_names[index]
+        routine_name = Database.routine_names[index]
     
     else:
         print("Eror: rutinitas tidak ditemukan")
@@ -48,7 +65,7 @@ def edit_page(**kwargs):
     
     while is_continue:
         Utility.clear_screen()
-        View.print_routine()
+        Routine.print_routine()
 
         print("\n'nomor(spasi)opsi' untuk memilih")
         print("Contoh: 3 1 untuk mengedit exercise no.3")
@@ -66,7 +83,7 @@ def edit_page(**kwargs):
             user_option = input("\nPilihan Anda: ")
             match user_option:
                 case "00": 
-                    View.select_exercise()
+                    select_exercise()
                     break
 
                 case "01": 
@@ -85,9 +102,9 @@ def edit_page(**kwargs):
                 case "02": 
                     # rename_routine()
                     new_name = Utility.ask_routine_name()
-                    Database.Database.old_name = Database.Database.temp_list[0] # menyimpan nama rutinitas lama ke dalam variabel
-                    Database.Database.temp_list[0] = new_name
-                    routine_name = Database.Database.temp_list[0]
+                    Database.old_name = Database.temp_list[0] # menyimpan nama rutinitas lama ke dalam variabel
+                    Database.temp_list[0] = new_name
+                    routine_name = Database.temp_list[0]
                     break
 
                 case _:
@@ -100,7 +117,7 @@ def edit_page(**kwargs):
                     except:
                         print("Masukkan angka, bukan yang lain!")
                         continue
-                    if user_option[0] >= len(Database.Database.temp_list) or user_option[0] < 1:
+                    if user_option[0] >= len(Database.temp_list) or user_option[0] < 1:
                         print("Nomor exercise tidak ada")
                         continue
 
@@ -120,3 +137,74 @@ def edit_page(**kwargs):
 
         Utility.clear_screen()   
 
+def select_exercise():
+    print_exercises()
+    n = len(exercises_dict)
+
+    # ask user option
+    while True:
+        try:
+            user_option = int(input("\nNo exercise yang ingin ditambah: ")) - 1
+
+            if user_option >= n or user_option < 0:
+                print("Masukkan angka yang valid")
+
+            else:
+                break
+        except:
+            print("Masukkan angka yang valid")
+    
+    exercise_name = exercises_dict[user_option]["name"]
+    exercise_type = exercises_dict[user_option]["type"]
+
+    while True:
+        try:
+            if exercise_type != "time-based":
+                reps = Utility.ask_reps()
+            else: 
+                reps = "-"
+            if exercise_type == "weight-based":
+                kg = Utility.ask_kg()
+            else:
+                kg = "-"
+            if exercise_type == "time-based":
+                timer = Utility.ask_timer()
+            else:
+                timer = "-"
+
+            str_exercise = f"{exercise_name},{reps},{kg},{timer}"
+
+            Database.temp_list.append(str_exercise)
+            break
+        
+        except:
+            print("Masukkan input yang valid!")
+
+def print_exercises():  
+    # print heading
+    Utility.clear_screen()
+    print("Select Exercise")
+    print("-"* 93)
+    print(f"No  |Exercise Name" + " "*17 + "|Exercise Type" + " "*17 +"|Muscle Target" + " "*17)
+    print("-"* 93)
+
+    n = len(exercises_dict)
+
+    # print content
+    counter = 1
+    for i in range(n):
+        str_counter = str(counter)
+        no = f"{str_counter + no_space[len(str_counter):]}"
+
+        exercise_name = exercises_dict[i]["name"]
+        exercise_name += name_space[len(exercise_name):]
+
+        exercise_type = exercises_dict[i]["type"]
+        exercise_type += type_space[len(exercise_type):]
+
+        muscle_target = exercises_dict[i]["muscle_target"].split("-")
+        muscle_target = ", ".join(muscle_target)
+        muscle_target += muscle_target[len(muscle_target):]
+
+        print(f"{no}|{exercise_name}|{exercise_type}|{muscle_target}")
+        counter += 1

@@ -1,13 +1,14 @@
-import page
+from Page import Routine, History
+from Operation import Utility, Database
 
 if __name__=="__main__":
-    page.init_app()
+    Database.init_app()
 
     is_continue = True
 
     while is_continue:
-        page.refresh_routine_names()
-        page.Utility.clear_screen()
+        Database.refresh_routine_names()
+        Utility.clear_screen()
         print("Welcome to Strenx Workout!")
         print("===============================")
         print("1. Lihat Rutinitas")
@@ -18,10 +19,10 @@ if __name__=="__main__":
             user_option = input("Masukan opsi: ")
             match user_option:
                 case "1": 
-                    page.routine( )
+                    Routine.routine_page( )
                     break
                 case "2": 
-                    page.history_page()
+                    History.history_page()
                     break
                 case "0": 
                     is_continue = False

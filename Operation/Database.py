@@ -1,11 +1,9 @@
 import os, time
 
-DB_NAME = "data.txt"
-exercises_path = "./Page/Operation/Database/Data/exercise.txt"
-history_file_path = "./Page/Operation/Database/Data/history.txt"
-dirname = os.path.dirname(__file__)
-routine_path = os.path.join(dirname, "Data\\routines\\")
-history_path = os.path.join(dirname, "Data\\history.txt")
+previous_dirname = os.path.dirname(__file__) + "\\.."
+exercises_path = os.path.join(previous_dirname, "Database\\exercises.txt")
+routine_path = os.path.join(previous_dirname, "Database\\routines\\")
+history_path = os.path.join(previous_dirname, "Database\\history.txt")
 
 routine_names = []
 exercises = []
@@ -44,7 +42,7 @@ def create_temp_list(routine_name:str):
 def write_history():
     try:
         global time_start, time_end
-        with open(history_file_path, 'a', encoding="utf-8") as file:
+        with open(history_path, 'a', encoding="utf-8") as file:
             n = len(temp_list)
 
             data_str = ""
@@ -97,10 +95,6 @@ def refresh_routine_names():
             if ".txt" in file:
                 routine_names.append(file[:-4])
 
-def refresh_temp_routines(routine_name:str):
-    temp_list.clear()
-    create_temp_list(routine_name)
-
 def write_routine():
     try:
         routine_title = temp_list[0]
@@ -123,6 +117,8 @@ def write_routine():
 
     except:
         print("Pembuatan rutinitas gagal")
+    
+    refresh_routine_names()
 
 def delete_routine(routine_name:str):
     file_path = f"{routine_path}{routine_name}.txt"
@@ -141,22 +137,14 @@ def update_routine():
 
         with open(file_name, "w", encoding='utf-8') as file:
             for i in range(1,n):
+                # slicing untuk menghilangkan done status ["y","n"] dan mengakhiri dengan enter
                 line = data[i][:-2] + "\n"
                 file.write(line)
-
-        # me-remove file lama jika rutinitas di rename
-        global old_name
-        if old_name != 0:
-            old_file = f"{routine_path}{old_name}.txt"
-            print(old_file)
-            os.remove(old_file)
-            old_file = ""
-            old_name = 0
 
     except:
         print("Pembuatan rutinitas gagal")
 
 def read_history():
-    with open(history_file_path, "r") as file:
+    with open(history_path, "r") as file:
         content = file.readlines()
     return content

@@ -1,5 +1,4 @@
-from . import Utility
-from .Database import Database
+from . import Utility, Database
 
 def str_duration(time_start:dict, time_end:dict) -> str:
     time_start = int(time_start['hour'])*3600 + int(time_start['minute'])*60 + int(time_start["second"])
