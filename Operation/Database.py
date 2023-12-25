@@ -66,27 +66,6 @@ def create_temp_list(routine_name:str):
     except:
         print("Gagal membuat temp routine")
 
-def write_history():
-    try:
-        global time_start, time_end
-        with open(history_path, 'a', encoding="utf-8") as file:
-            n = len(temp_list)
-
-            data_str = ""
-            # time_start,time_end,routine_name,exercises...
-            data_str = f"{time_start},{time_end},{temp_list[0]}"
-
-            for i in range(1,n):
-                if temp_list[i][-1] == "y":
-                    data_str += f",{temp_list[i][:-2]}"
-
-            data_str += "\n"
-            file.write(data_str)
-            print("Berhasil merekap latihan")
-
-    except:
-        print('file history tidak ditemukan')
-
 def refresh_routine_names():
     routine_names.clear()
     
@@ -143,6 +122,27 @@ def update_routine():
 
     except:
         print("Pembuatan rutinitas gagal")
+
+def write_history():
+    try:
+        global time_start, time_end
+        with open(history_path, 'a', encoding="utf-8") as file:
+            n = len(temp_list)
+
+            data_str = ""
+            # time_start,time_end,routine_name,exercises...
+            data_str = f"{time_start},{time_end},{temp_list[0]}"
+
+            for i in range(1,n):
+                if temp_list[i][-1] == "y":
+                    data_str += f",{temp_list[i][:-2]}"
+
+            data_str += "\n"
+            file.write(data_str)
+            print("Berhasil merekap latihan")
+
+    except:
+        print('file history tidak ditemukan')
 
 def read_history():
     with open(history_path, "r") as file:
