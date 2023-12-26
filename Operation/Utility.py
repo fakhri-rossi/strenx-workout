@@ -72,7 +72,12 @@ def ask_reps() -> int:
 def ask_kg():
     while True:
         try:
-            kg = int(input("Berat beban (kg): "))
+            kg = input("Berat beban (kg): ")
+            if kg.isnumeric():
+                kg = int(kg)
+            else:
+                kg = float(kg)
+
             if kg > 999 or kg < 1:
                 print("Berat beban tidak masuk akal!")
                 continue
@@ -80,6 +85,7 @@ def ask_kg():
         
         except:
             print("Masukkan berat yang valid!")
+        print(kg)
 
 def ask_timer()-> str:
     while True:
@@ -88,15 +94,15 @@ def ask_timer()-> str:
             print("Input valid time!")
             continue
 
-        elif not timer[:2].isnumeric() or not timer[3:].isnumeric():
-            print("Input valid time!")
-            continue
-
         else:
             try:
-                inttime = int(timer[:2])
-                inttime = int(timer[3:])
-                return timer
+                mnt = int(timer[:2])
+                sec = int(timer[3:])
+                if 0 <= mnt <= 60 and 0 <= sec <= 59:
+                    return timer
+                else:
+                    print("Input valid time!")
+                    continue
             except:
                 print("Input valid time!")
                 continue
@@ -106,7 +112,6 @@ def ask_routine_name()->str:
         routine_name = input("Nama Rutinitas: ")   
 
         if routine_name not in routine_names:
-            Database.temp_list.append(routine_name)
             return routine_name
 
         else:

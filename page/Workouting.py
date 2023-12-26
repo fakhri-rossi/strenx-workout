@@ -45,6 +45,7 @@ def workouting_page(index:int):
             match user_option:
                 case "00": 
                     CRUD.select_exercise()
+                    routine_change = True
                     break
 
                 case "01": 
@@ -59,16 +60,19 @@ def workouting_page(index:int):
                             Database.time_end = Utility.get_current_time()
                             Database.write_history()
                             is_continue = False
-                            Utility.wait()
                             
                         else:
                             break
 
                         if routine_change:
-                            print("Anda merubah susunan rutinitas")
-                            agree = Utility.user_confirm("Apakah Anda ingin mengupdate rutinitas?")
+                            agree = Utility.user_confirm("Anda merubah susunan rutinitas. Apakah Anda ingin mengupdate rutinitas?")
                             if agree:
                                 Database.update_routine()
+                                # konfirmasi sistem terdapat di function update_routine()
+                                Utility.wait()
+                            else:
+                                print("Perubahan pada rutinitas tidak disimpan")
+                                Utility.wait()
                         break
                     # untuk antisipasi jika user menyelesaikan latihan kosong
                     else:
@@ -109,17 +113,17 @@ def workouting_page(index:int):
 
                         case "2":
                             print("Edit set")
-                            CRUD.edit_set(user_option[0])
+                            Utility.edit_set(user_option[0])
                             routine_change = True
                             break
 
                         case "3":
-                            CRUD.add_set(user_option[0])
+                            Utility.add_set(user_option[0])
                             routine_change = True               
                             break
 
                         case "4":
-                            CRUD.delete_set(user_option[0])
+                            Utility.delete_set(user_option[0])
                             routine_change = True
                             break
 

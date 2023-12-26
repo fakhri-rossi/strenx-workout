@@ -28,6 +28,7 @@ def new_routine():
     routine_name = Utility.ask_routine_name()
     agree = Utility.user_confirm(f"Apakah Anda ingin membuat {routine_name}?")
     if agree:
+        Database.temp_list.append(routine_name)
         Database.write_routine()
         print("Rutinitas berhasil dibuat")
         Utility.wait()
@@ -90,12 +91,13 @@ def edit_page(**kwargs):
                     agree = Utility.user_confirm("Simpan perubahan rutinitas?")
                     if agree:
                         Database.write_routine()
+                        print("Rutinitas berhasil diedit")
                         is_continue = False
                         Utility.wait()
                 
                     else:
                         is_continue = False
-                        print("Rutinitas tidak disimpan")
+                        print("Perubahan rutinitas tidak disimpan")
                         Utility.wait()
                     break
 
@@ -134,6 +136,9 @@ def edit_page(**kwargs):
                         case "3":
                             Utility.delete_set(user_option[0])
                             break
+
+                        case _:
+                            print("Opsi tidak tersedia!")
 
         Utility.clear_screen()   
 

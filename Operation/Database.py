@@ -1,7 +1,7 @@
 import os, time
 
 previous_dirname = os.path.dirname(__file__) + "\\.."
-exercises_path = os.path.join(previous_dirname, "Database\\exercises.txt")
+exercises_path = os.path.join(previous_dirname, "Database\\exercise.txt")
 routine_path = os.path.join(previous_dirname, "Database\\routines\\")
 history_path = os.path.join(previous_dirname, "Database\\history.txt")
 
@@ -119,9 +119,10 @@ def update_routine():
                 # slicing untuk menghilangkan done status ["y","n"] dan mengakhiri dengan enter
                 line = data[i][:-2] + "\n"
                 file.write(line)
+        print("Perubahan rutinitas berhasil disimpan")
 
     except:
-        print("Pembuatan rutinitas gagal")
+        print("Gagal menyimpan perubahan rutinitas")
 
 def write_history():
     try:
