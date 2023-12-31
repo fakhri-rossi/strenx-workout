@@ -1,4 +1,0 @@
-Push Up,body-weight,chest tricep
-Plank,time-based,core
-Bench Press,weight-based,chest shoulder
-Lateral Raise,weight-based,shoulder
