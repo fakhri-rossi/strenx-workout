@@ -1,0 +1,6 @@
+Lateral Raise,15,10,-
+Lateral Raise,15,10,-
+Lateral Raise,15,10,-
+Reverse Fly,10,10,-
+Reverse Fly,10,10,-
+Reverse Fly,10,10,-
