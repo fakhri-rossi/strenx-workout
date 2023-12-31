@@ -54,7 +54,7 @@ def workouting_page(index:int):
                     break
 
                 case "02": 
-                    if n_data > 2:
+                    if n_data > 1:
                         agree = Utility.user_confirm("Selesai berolahraga?")
                         if agree:
                             Database.time_end = Utility.get_current_time()
