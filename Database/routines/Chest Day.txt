@@ -1,9 +1,0 @@
-Push Up,20,-,-
-Push Up,20,-,-
-Push Up,20,-,-
-Bench Press,15,10,-
-Bench Press,15,10,-
-Bench Press,15,10,-
-Diamond Push Up,20,-,-
-Diamond Push Up,20,-,-
-Diamond Push Up,20,-,-
