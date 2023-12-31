@@ -1,9 +1,0 @@
-Jump Squat,15,-,-
-Jump Squat,15,-,-
-Jump Squat,15,-,-
-Plank,-,-,01:00
-Plank,-,-,01:00
-Plank,-,-,01:00
-Bench Press,12,100,-
-Bench Press,12,100,-
-Bench Press,12,100,-
