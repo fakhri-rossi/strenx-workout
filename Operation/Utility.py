@@ -124,6 +124,8 @@ def get_current_time()->str:
     gmt = int(current_time[6][1:3])
 
     hour += gmt
+    if hour > 24:
+        hour -= 24
     
     if len(str(hour)) < 2:
         hour = "0" + str(hour)
